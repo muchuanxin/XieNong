@@ -1,0 +1,54 @@
+<!doctype html>
+<html><style type="text/css" id="1886812066"></style><head lang="zh-CN">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="address=no">
+    <script type="text/javascript" src="http://3gimg.qq.com/lightmap/components/locationPicker2/js/main-62c2e3b971.js"></script>
+    <title>locationPicker Components Demo - iframe</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body, html{
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        //iframe椤甸潰璋冪敤鏂规硶
+        $(function(){ 
+
+            adaptHeight();//鍔ㄦ�閫傞厤楂樺害
+           
+            window.onresize = function() { //妯睆銆丵Q娴忚鍣ㄥ彉鍏ㄥ睆妯″紡涓嬬殑鏃跺�锛岄渶瑕侀噸鏂拌绠楅珮搴�             
+                adaptHeight();                
+            }
+
+          
+			 window.addEventListener('message', function(event) {
+				var loc = event.data;
+				alert(loc.cityname +loc.poiname+','+loc.poiaddress+','+loc.latlng.lat+','+loc.latlng.lng);
+			}, false);
+			
+			
+            function adaptHeight() {
+                var winH = $(window).height(); 
+                var bodyH = document.documentElement.clientHeight; 
+                if (winH > bodyH) {
+                    window.parent.document.getElementById("iframe").height=winH;
+                } else {
+                    window.parent.document.getElementById("iframe").height=bodyH;
+                }  
+            }
+        });
+    </script>
+</head>
+<body>
+    <!-- 閫氳繃 iframe 宓屽叆鍦板浘閫夌偣缁勪欢 --> 
+    <iframe id="iframe" width="100%" frameborder="0" scrolling="no" src="https://3gimg.qq.com/lightmap/components/locationPicker2/index.html?search=1&type=1&key=BR7BZ-TDJWX-OE64N-TKZNI-COIVF-ZWB7H&referer=com.kmj.agriculture" height="299">
+    </iframe>
+</body><style type="text/css" id="1886813066"></style></html>
+ 
