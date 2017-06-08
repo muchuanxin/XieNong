@@ -12,7 +12,10 @@
     <string name="no_photo">相册没有图片</string>
     <string name="only_choose_num">超出可选图片张数</string>
     <string name="photo">选择相册</string>
-
+    <!-- drawer-->
     <string name="open">打开</string>
     <string name="close">关闭</string>
+    <!-- publish announce-->
+    <string name="confirm_publish_announce">您要发布农机需求吗?</string>
+    <string name="confirm">确定</string>
 </resources>

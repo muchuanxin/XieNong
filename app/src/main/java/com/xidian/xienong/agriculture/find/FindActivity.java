@@ -9,8 +9,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.xidian.xienong.R;
+import com.xidian.xienong.util.SnackbarUtil;
 
 
 /**
@@ -33,7 +35,17 @@ public class FindActivity extends AppCompatActivity{
         setContentView(R.layout.find_activity);
         initViews();
         configViews();
+        initEvents();
 
+    }
+
+    private void initEvents() {
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SnackbarUtil.show(FindActivity.this,v, getString(R.string.confirm_publish_announce), 1);
+            }
+        });
     }
 
     private void configViews() {

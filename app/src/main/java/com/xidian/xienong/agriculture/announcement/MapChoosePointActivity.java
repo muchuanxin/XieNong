@@ -3,6 +3,7 @@ package com.xidian.xienong.agriculture.announcement;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -22,9 +23,8 @@ import com.xidian.xienong.util.Constants;
 public class MapChoosePointActivity extends AppCompatActivity{
     private WebView webView;
     private Button confirm_location;
-    private ImageButton back;
-    private TextView title;
     private String whichActivity="";
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +38,9 @@ public class MapChoosePointActivity extends AppCompatActivity{
 
     private void initEvents() {
         // TODO Auto-generated method stub
-        back.setOnClickListener(new View.OnClickListener() {
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 finish();
             }
         });
@@ -64,11 +62,14 @@ public class MapChoosePointActivity extends AppCompatActivity{
 
     private void initDatas() {
         // TODO Auto-generated method stub
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         whichActivity = getIntent().getStringExtra("activity");
         if(whichActivity.equals("new_announce_activity")){
-            title.setText("农田位置");
+            toolbar.setTitle("农田位置");
         }else{
-            title.setText("农机位置");
+            toolbar.setTitle("农机位置");
         }
         WebSettings webSettings = webView.getSettings();
         //设置WebView属性，能够执行Javascript脚本
@@ -87,10 +88,8 @@ public class MapChoosePointActivity extends AppCompatActivity{
         // TODO Auto-generated method stub
         webView = (WebView)findViewById(R.id.crop_webview);
         confirm_location = (Button)findViewById(R.id.btn_confirm_location);
-        back = (ImageButton)findViewById(R.id.btn_back_announce);
-        title = (TextView)findViewById(R.id.tv_login_title);
+        toolbar = (Toolbar)findViewById(R.id.map_toolbar);
     }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
