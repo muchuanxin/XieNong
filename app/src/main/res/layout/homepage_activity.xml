@@ -16,18 +16,15 @@
         tools:layout_editor_absoluteX="8dp"
         tools:ignore="MissingConstraints">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/homepage_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="首页"
-                android:textColor="@android:color/white"
-                android:textSize="20dp" />
-        </android.support.v7.widget.Toolbar>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:title="首页"
+            app:titleTextColor="@android:color/white" />
     </android.support.design.widget.AppBarLayout>
     <com.xidian.xienong.util.ListenedScrollView
         android:id="@+id/homepage_scrollView"
@@ -96,11 +93,15 @@
                     android:layout_weight="1"
                     android:scaleType="fitXY"
                     android:background="@mipmap/homepage_agriculture"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"/>
                 <TextView
                     android:id="@+id/machine_entrance"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
+                    android:background="@android:color/holo_orange_light"
                     android:layout_weight="1"
                     android:text="@string/machine_tagline"
                     android:textSize="18dp"
@@ -112,7 +113,7 @@
                 android:layout_below="@id/ll_machine_entrance"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+                android:background="@android:color/white" />
             <LinearLayout
                 android:id="@+id/ll_shoppingmall"
                 android:layout_below="@id/view"
@@ -125,11 +126,15 @@
                     android:layout_weight="1"
                     android:scaleType="fitXY"
                     android:background="@mipmap/homepage_shopping"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/white"/>
                 <TextView
                     android:id="@+id/shopping_entrance"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
+                    android:background="@android:color/holo_orange_light"
                     android:layout_weight="1"
                     android:text="@string/mall_tagline"
                     android:textSize="18dp"

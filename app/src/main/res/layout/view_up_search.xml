@@ -14,11 +14,11 @@
         android:textSize="18sp"
         android:textColor="@android:color/black"
         android:gravity="center"
-        android:background="@drawable/up_search_circle2" />
+        android:background="@drawable/up_search_circle" />
     <TextView
         android:id="@+id/circle"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/up_search_circle2"
+        android:background="@drawable/up_search_circle"
         android:visibility="invisible" />
 </FrameLayout>
