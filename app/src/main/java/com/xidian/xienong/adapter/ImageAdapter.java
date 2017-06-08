@@ -40,7 +40,7 @@ public class ImageAdapter extends PagerAdapter{
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         // 对ViewPager页号求模取出View列表中要显示的项
-        Log.i("kmj", "viewlist.size():" + viewlist.size());
+//        Log.i("kmj", "viewlist.size():" + viewlist.size());
         ((ViewPager) container).addView(viewlist.get(position), 0);
 
         return viewlist.get(position);

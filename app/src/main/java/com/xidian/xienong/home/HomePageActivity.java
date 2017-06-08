@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.ImageAdapter;
+import com.xidian.xienong.agriculture.announcement.NewAnnounceActivity;
 import com.xidian.xienong.agriculture.find.FindActivity;
 import com.xidian.xienong.shoppingmall.ShoppingActivity;
 import com.xidian.xienong.util.ListenedScrollView;
@@ -168,7 +169,7 @@ public class HomePageActivity extends AppCompatActivity {
         shoppingEntrance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this,ShoppingActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, NewAnnounceActivity.class);
                 startActivity(intent);
             }
         });
