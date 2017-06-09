@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+  <string-array name="tab_titles">
+    <item>全部</item>
+    <item>待接单</item>
+    <item>已接单</item>
+    <item>作业中</item>
+    <item>已完成</item>
+  </string-array>
+</resources>
