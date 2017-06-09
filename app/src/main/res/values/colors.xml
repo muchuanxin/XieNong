@@ -44,4 +44,6 @@
     <color name="red">#CD5555</color>
     <color name="green">#3cb371</color>
     <color name="qianlan">#ff0099cc</color>
+    <color name="gray">#8e8e8e</color>
+    <color name="hui">#ffcccccc</color>
 </resources>
