@@ -1,6 +1,8 @@
 package com.xidian.xienong.agriculture.find;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -9,9 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.xidian.xienong.R;
+import com.xidian.xienong.agriculture.me.AboutUsActivity;
+import com.xidian.xienong.agriculture.me.FeedbackActivity;
+import com.xidian.xienong.agriculture.me.MyOrderActivity;
+import com.xidian.xienong.agriculture.me.SettingActivity;
 import com.xidian.xienong.util.SnackbarUtil;
 
 
@@ -51,7 +58,6 @@ public class FindActivity extends AppCompatActivity{
     private void configViews() {
         // 设置显示Toolbar
         setSupportActionBar(mToolbar);
-
         // 设置Drawerlayout开关指示器，即Toolbar最左边的那个icon
         ActionBarDrawerToggle mActionBarDrawerToggle =
                 new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.open, R.string.close);
@@ -62,6 +68,40 @@ public class FindActivity extends AppCompatActivity{
         mNavigationView.inflateHeaderView(R.layout.header_navigation);
 //    //给NavigationView填充Menu菜单，也可在xml中使用app:menu="@menu/menu_nav"来设置
         mNavigationView.inflateMenu(R.menu.menu_nav);
+        onNavgationViewMenuItemSelected(mNavigationView);
+    }
+
+    private void onNavgationViewMenuItemSelected(NavigationView mNavigationView) {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                switch (item.getItemId()){
+                    case R.id.nav_menu_order :
+                        intent = new Intent(FindActivity.this, MyOrderActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_menu_feedback:
+                        intent = new Intent(FindActivity.this, FeedbackActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_menu_aboutus:
+                        intent = new Intent(FindActivity.this, AboutUsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_menu_setting:
+                        intent = new Intent(FindActivity.this, SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+                // Menu item点击后选中，并关闭Drawerlayout
+                item.setChecked(false);
+//                mDrawerLayout.closeDrawers();
+                return false;
+            }
+        });
     }
 
     private void initViews() {

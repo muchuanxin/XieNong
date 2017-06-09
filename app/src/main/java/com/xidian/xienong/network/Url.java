@@ -5,7 +5,7 @@ package com.xidian.xienong.network;
  */
 
 public class Url {
-    public final static String API_HOST = "http://113.200.60.160:8080/Agriculture/";
+    public final static String API_HOST = "http://10.175.37.201:8080/Agriculture/";
     public static String FarmerLogin = API_HOST + "FarmerLogin";
     public static String WorkerLogin = API_HOST + "WorkerLogin";
     public static String VerificationCode = API_HOST + "VerificationCode";
