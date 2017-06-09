@@ -21,6 +21,18 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderRecyclerViewHolder>{
 
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+
+        void onItemLongClick(View view, int position);
+    }
+
+    public OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
     public LayoutInflater mLayoutInflater;
     public Context mContext = null;
     public List<OrderBean> data;
@@ -41,7 +53,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderRecyclerViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(OrderRecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(final OrderRecyclerViewHolder holder, final int position) {
+
+        if (mOnItemClickListener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(holder.itemView, position);
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override public boolean onLongClick(View v) {
+                    mOnItemClickListener.onItemLongClick(holder.itemView, position);
+                    return true;
+                }
+            });
+        }
         final OrderBean order= data.get(position);
         if(!sp.getHeadPhoto().equals("") || sp.getHeadPhoto() != null){
             Glide.with(mContext).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.author).into(holder.publisher_photo);

@@ -1,5 +1,6 @@
 package com.xidian.xienong.agriculture.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,8 +22,11 @@ import com.xidian.xienong.model.OrderBean;
 import com.xidian.xienong.network.BaseCallback;
 import com.xidian.xienong.network.OKHttp;
 import com.xidian.xienong.network.Url;
-import com.xidian.xienong.util.MarqueeView;
+import com.xidian.xienong.tools.SweetAlertDialog;
+import com.xidian.xienong.util.Constants;
 import com.xidian.xienong.util.RecyclerDecoration;
+import com.xidian.xienong.util.SharePreferenceUtil;
+import com.xidian.xienong.util.ToastCustom;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,17 +39,14 @@ import java.util.Map;
 
 import okhttp3.Request;
 import okhttp3.Response;
+import static com.xidian.xienong.agriculture.me.MyOrderActivity.mViewPager;
 
-import static com.xidian.xienong.agriculture.me.MyOrderActivity.finishedOrderList;
-import static com.xidian.xienong.agriculture.me.MyOrderActivity.operingOrderList;
-import static com.xidian.xienong.agriculture.me.MyOrderActivity.receivedOrderList;
-import static com.xidian.xienong.agriculture.me.MyOrderActivity.waitingOrderList;
 
 /**
  * Created by koumiaojuan on 2017/6/8.
  */
 
-public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
+public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener,OrderAdapter.OnItemClickListener{
 
     private View mView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -54,6 +55,7 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     private OrderAdapter adapter;
     private List<OrderBean> list = new ArrayList<OrderBean>();
     private OKHttp httpUrl;
+    private SharePreferenceUtil sp;
 
     @Nullable
     @Override
@@ -67,9 +69,11 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.order_swiperefreshlayout);
         super.onActivityCreated(savedInstanceState);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.order_recyclerview);
+        sp = new SharePreferenceUtil(getContext(), Constants.SAVE_USER);
         list = (List<OrderBean>) getArguments().get("data");
         mLayoutManager =  new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         adapter = new OrderAdapter(getActivity(),list);
+        adapter.setOnItemClickListener(this);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(mLayoutManager);
 //        mRecyclerView.addItemDecoration(new RecyclerDecoration(getActivity(), LinearLayoutManager.VERTICAL));
@@ -81,6 +85,8 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorAccent);
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
+
+
     }
 
     public void refreshData(){
@@ -90,12 +96,23 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     @Override
     public void onRefresh() {
-        refreshAnnounceList(Url.GetAllAnnouncement);
+        if(mViewPager.getCurrentItem()==0){
+            refreshAnnounceList(Url.GetAllAnnouncement);
+        }else if(mViewPager.getCurrentItem()==1){
+            refreshAnnounceList(Url.GetWaitingToReceiveAnnouncement);
+        }else if(mViewPager.getCurrentItem()==2){
+            refreshAnnounceList(Url.GetHaveReceivedAnnouncement);
+        }else if(mViewPager.getCurrentItem()==3){
+            refreshAnnounceList(Url.GetIsOperatingAnnouncement);
+        }else{
+            refreshAnnounceList(Url.GetOperatedAnnouncement);
+        }
+
     }
 
     private void refreshAnnounceList(final String url) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("farmer_id", "6219");
+        map.put("farmer_id", "6223");
         httpUrl.post(url,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -153,10 +170,13 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     order.setEvaluate(object.getBoolean("isEvaluate"));
                     order.setDeletedByFarmer(object.getBoolean("isDeletedByFarmer"));
                     order.setOrderState(object.getString("orderState"));
+                    order.setAdviceState(object.getString("advice_state"));
                     order.setCancleTime(object.getString("cancle_time"));
                     order.setCancleReason(object.getString("cancle_reason"));
-                    order.setAdviceState(object.getString("advice_state"));
+//                    order.setApplyCancleReason(object.getString("apply_cancle_reason"));
+//                    order.setApplyCancleReasonId(object.getString("apply_cancle_reason_id"));
                     order.setPrice(object.getInt("work_price"));
+
 
                     JSONArray driverArray = object.getJSONArray("drivers");
                     List<Driver> drivers = new ArrayList<Driver>();
@@ -192,9 +212,9 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         machineImages.add(image);
                     }
                     order.setMachineImages(machineImages);
+
                     list.add(order);
                 }
-                fillFragmentsWithData(list);
                 adapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
             }else {
@@ -207,21 +227,95 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         }
     }
 
-    private void fillFragmentsWithData(List<OrderBean> list) {
-        waitingOrderList.clear();
-        receivedOrderList.clear();
-        operingOrderList.clear();
-        finishedOrderList.clear();
-        for(OrderBean order : list){
-            if(order.getOrderState().equals("待接单")){
-                waitingOrderList.add(order);
-            }else if(order.getOrderState().equals("已接单")){
-                receivedOrderList.add(order);
-            }else if(order.getOrderState().equals("作业中")){
-                operingOrderList.add(order);
-            }else{
-                finishedOrderList.add(order);
-            }
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Log.i("kmj","wojds;ld");
+        Intent intent = new Intent(getActivity(),AnnounceDetailActivity.class);
+        intent.putExtra("announce", list.get(position));
+        startActivityForResult(intent, 4);
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+        final OrderBean order = list.get(position);
+        if(order.getOrderState().equals("已完成") || order.getOrderState().equals("已取消")){
+            new SweetAlertDialog(getActivity(), SweetAlertDialog.TIP_TYPE)
+                    .setTitleText("删除订单")
+                    .setContentText("您是否要删除订单？")
+                    .setCancelText("不，谢谢")
+                    .setConfirmText("好，删除")
+                    .showCancelButton(true)
+                    .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismiss();
+                        }
+                    })
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismiss();
+                            deleteOrder(order);
+                        }
+                    })
+                    .show();
         }
     }
+
+    private void deleteOrder(OrderBean order) {
+        final OrderBean order1 = order;
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("order_id",order1.getOrder_id());
+        map.put("isWorker",sp.getisWorker());
+        httpUrl.post(Url.DeleteHaveOperatedOrder,map,new BaseCallback<String>(){
+            @Override
+            public void onRequestBefore() {
+
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+
+            }
+
+            @Override
+            public void onSuccess(Response response, String resultResponse) {
+                Log.i("kmj", "result : " + resultResponse);
+                try {
+                    JSONObject jb = new JSONObject(resultResponse);
+                    String result = jb.getString("reCode");
+                    String message = jb.getString("message");
+                    if (result.equals("SUCCESS")) {
+                        ToastCustom.makeToast(getActivity(), "删除成功");
+                        refreshAnnounceList(Url.GetOperatedAnnouncement);
+                    }else{
+                        ToastCustom.makeToast(getActivity(), message);
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Response response, int errorCode, Exception e) {
+                Log.i("kmj", "error : " + e.toString());
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 4){
+            if (resultCode == 300 ) {
+                onRefresh();
+            }
+
+        }
+    }
+
 }

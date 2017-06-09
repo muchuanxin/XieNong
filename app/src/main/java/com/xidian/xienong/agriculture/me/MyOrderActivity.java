@@ -1,5 +1,9 @@
 package com.xidian.xienong.agriculture.me;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -48,18 +52,19 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
     private  OKHttp httpUrl;
     private Toolbar mToolbar;
     private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    public static ViewPager mViewPager;
     // TabLayout中的tab标题
     private String[] mTitles;
     // 填充到ViewPager中的Fragment
-    private List<Fragment> mFragments = new ArrayList<>();
+    private  List<Fragment> mFragments = new ArrayList<>();
     private List<OrderBean> list = new ArrayList<OrderBean>();
-    private ViewPagerAdapter mViewPagerAdapter;
+    public static ViewPagerAdapter mViewPagerAdapter;
     public static List<List<OrderBean>>  orders = new ArrayList<>();
     public static List<OrderBean> waitingOrderList = new ArrayList<>();
     public static List<OrderBean> receivedOrderList = new ArrayList<>();
     public static List<OrderBean> operingOrderList = new ArrayList<>();
     public static List<OrderBean> finishedOrderList = new ArrayList<>();
+    private int currentItem = 0;
 
 
 
@@ -96,6 +101,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                 finish();
             }
         });
+
     }
 
     private void initData() {
@@ -104,6 +110,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        registerBroadcastReceiver();
         mTitles = getResources().getStringArray(R.array.tab_titles);
         orders.add(list);
         orders.add(waitingOrderList);
@@ -119,9 +126,36 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
         }
     }
 
+    private void registerBroadcastReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(Constants.HAS_EVALUATED_BY_FARMER);
+        filter.addAction(Constants.HAS_AGREE_OR_REFUSE_BY_FARMER);
+        registerReceiver(receiver, filter);
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context arg0, Intent intent) {
+            // TODO Auto-generated method stub
+            if(intent.getAction().equals(Constants.HAS_EVALUATED_BY_FARMER)){
+//                requestAnnounceList(Url.GetOperatedAnnouncement);
+                currentItem = 4;
+                requestAnnounceList(Url.GetAllAnnouncement);
+            }else{
+                Log.i("kmj","---agree----");
+//                requestAnnounceList(Url.GetHaveReceivedAnnouncement);
+                currentItem = 2;
+                requestAnnounceList(Url.GetAllAnnouncement);
+            }
+
+        }
+    };
+
     public void requestAnnounceList(final String url) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("farmer_id", "6219");
+        map.put("farmer_id", "6223");
         httpUrl.post(url,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -179,10 +213,13 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                     order.setEvaluate(object.getBoolean("isEvaluate"));
                     order.setDeletedByFarmer(object.getBoolean("isDeletedByFarmer"));
                     order.setOrderState(object.getString("orderState"));
+                    order.setAdviceState(object.getString("advice_state"));
                     order.setCancleTime(object.getString("cancle_time"));
                     order.setCancleReason(object.getString("cancle_reason"));
-                    order.setAdviceState(object.getString("advice_state"));
+//                    order.setApplyCancleReason(object.getString("apply_cancle_reason"));
+//                    order.setApplyCancleReasonId(object.getString("apply_cancle_reason_id"));
                     order.setPrice(object.getInt("work_price"));
+
 
                     JSONArray driverArray = object.getJSONArray("drivers");
                     List<Driver> drivers = new ArrayList<Driver>();
@@ -218,9 +255,11 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                         machineImages.add(image);
                     }
                     order.setMachineImages(machineImages);
+
                     list.add(order);
                 }
                 fillFragmentsWithData(list);
+
             }else {
                 Toast.makeText(MyOrderActivity.this, "获取订单失败，请重试", Toast.LENGTH_SHORT).show();
             }
@@ -248,6 +287,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
             }
         }
         mViewPagerAdapter.notifyDataSetChanged();
+        mViewPager.setCurrentItem(currentItem);
     }
 
     private void initViews() {
@@ -265,11 +305,21 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
 
     @Override
     public void onPageSelected(int position) {
-            mToolbar.setTitle(mTitles[position]);
+        mToolbar.setTitle(mTitles[position]);
+
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+
 }

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.CroplandListAdapter;
 import com.xidian.xienong.adapter.MachineCategoryListAdapter;
+import com.xidian.xienong.agriculture.me.MyOrderActivity;
 import com.xidian.xienong.model.CroplandType;
 import com.xidian.xienong.model.MachineCategory;
 import com.xidian.xienong.network.BaseCallback;
@@ -231,19 +232,19 @@ public class NewAnnounceActivity extends AppCompatActivity{
     }
 
     private void publishAnnouncement() {
-        final Map<String, String> map = new HashMap<String, String>();
-        httpUrl.post(Url.GetAllCroplandType, map, new BaseCallback<String>() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("farmer_id","6219");
+        map.put("crop_address", crop_address.getText().toString());
+        map.put("longtitude", Constants.location.get(3));
+        map.put("lantitude", Constants.location.get(2));
+        map.put("machine_category_id",category_id);
+        map.put("cropland_type_id",cropland_id);
+        map.put("reservation_time", reserve_time.getText().toString());
+        map.put("cropland_number",cropland_number.getText().toString());
+        httpUrl.post(Url.PublishAnnouncement, map, new BaseCallback<String>() {
 
             @Override
             public void onRequestBefore() {
-                map.put("farmer_id","6219");
-                map.put("crop_address", crop_address.getText().toString());
-                map.put("longtitude", Constants.location.get(3));
-                map.put("lantitude", Constants.location.get(2));
-                map.put("machine_category_id",category_id);
-                map.put("cropland_type_id",cropland_id);
-                map.put("reservation_time", reserve_time.getText().toString());
-                map.put("cropland_number",cropland_number.getText().toString());
             }
 
             @Override
@@ -258,7 +259,8 @@ public class NewAnnounceActivity extends AppCompatActivity{
                     String message = jb.getString("message");
                     if (result.equals("SUCCESS")) {
                         ToastCustom.makeToast(getApplicationContext(), "发布成功");
-                        setResult(Activity.RESULT_OK);
+                        Intent intent = new Intent(NewAnnounceActivity.this, MyOrderActivity.class);
+                        startActivity(intent);
                         finish();
                     }else{
                         Toast.makeText(getApplicationContext(), message,Toast.LENGTH_SHORT).show();
