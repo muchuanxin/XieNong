@@ -94,6 +94,31 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="nosensor">
         </activity>
+        <activity
+            android:name=".agriculture.me.AnnounceDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".agriculture.me.CancleOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".agriculture.me.ImagePagerActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".agriculture.me.AllMachineImageActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".agriculture.me.EvaluateActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
 
 
 
