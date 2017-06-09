@@ -74,6 +74,28 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="nosensor">
         </activity>
+        <activity
+            android:name=".agriculture.me.MyOrderActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".agriculture.me.AboutUsActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".agriculture.me.FeedbackActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+        <activity
+            android:name=".agriculture.me.SettingActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="nosensor">
+        </activity>
+
+
 
 
     </application>
