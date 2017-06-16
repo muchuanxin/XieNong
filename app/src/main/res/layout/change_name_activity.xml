@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:background="@color/WhiteSmoke"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="5dp" >
+        <ImageButton
+            android:id="@+id/btn_change_name_back"
+            android:layout_width="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:src="@drawable/goback" />
+        <TextView
+            android:id="@+id/tv_change_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/chunbai"
+            android:text="名字"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/btn_save_name"
+            android:layout_width="wrap_content"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:textSize="18sp"
+            android:text="保存"
+            android:textColor="@color/chunbai" />
+    </RelativeLayout>
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/chunbai"
+        android:padding="10dp">
+    	<ImageButton
+            android:id="@+id/btn_clear_name"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:visibility="visible"
+            android:src="@drawable/clear_btn_normal" />
+    	<EditText
+    	    android:id="@+id/tv_change_name" 
+    	    android:layout_toLeftOf="@id/btn_clear_name"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:layout_centerVertical="true"
+    	    android:text="遇见Angel"
+    	    android:textSize="18sp" 
+    	    android:background="@color/chunbai"/>
+    </RelativeLayout>
+</LinearLayout>

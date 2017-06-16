@@ -10,7 +10,16 @@ public class Driver implements Serializable{
 	private boolean isUsed;
 	private String driver_identification; //身份证号
 	private String driver_license_date;
-	
+	private String photoUrl;
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
 	public boolean isUsed() {
 		return isUsed;
 	}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WhiteSmoke"
+    android:orientation="vertical"
+    tools:context="com.xidian.xienong.agriculture.me.AllCommentActivity"
+    >
+
+       <android.support.design.widget.AppBarLayout
+       android:id="@+id/app_bar_2"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:theme="@style/AppTheme.AppBarOverlay"
+       tools:layout_editor_absoluteY="0dp"
+       tools:layout_editor_absoluteX="8dp"
+       tools:ignore="MissingConstraints">
+       <android.support.v7.widget.Toolbar
+           android:id="@+id/comment_detail_toolbar"
+           android:layout_width="match_parent"
+           android:layout_height="?attr/actionBarSize"
+           android:background="?attr/colorPrimary"
+           app:layout_scrollFlags="scroll|enterAlways"
+           app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+           app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+           app:title="评价详情"
+           app:titleTextColor="@android:color/white" />
+   </android.support.design.widget.AppBarLayout>
+    <ListView
+        android:id="@+id/comment_list"
+        android:listSelector="@color/white"
+        android:dividerHeight="10dp"
+        android:divider="@color/WhiteSmoke"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </ListView>
+   
+</LinearLayout>

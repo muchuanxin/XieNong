@@ -79,7 +79,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
     }
 
     private void configViews() {
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragments);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), mTitles, mFragments,"my_order");
         mViewPager.setAdapter(mViewPagerAdapter);
         // 设置ViewPager最大缓存的页面个数
         mViewPager.setOffscreenPageLimit(5);

@@ -9,4 +9,10 @@
     <item>作业中</item>
     <item>已完成</item>
   </string-array>
+  <string-array name="order_titles">
+    <item>待接单</item>
+    <item>已接单</item>
+    <item>作业中</item>
+    <item>已完成</item>
+  </string-array>
 </resources>

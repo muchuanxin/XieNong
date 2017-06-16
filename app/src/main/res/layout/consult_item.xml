@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:padding="10dp"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/consult_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_vertical" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_consult_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="农业文化遗产成为农村发展新动能"/>
+        <TextView
+            android:id="@+id/tv_consult_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="6月5-7日，第四届全球重要农业文化遗产工作（中国）交流会在山东夏津召开。会议总结了我国全球重要农业文化遗…"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:id="@+id/ll_order_item"
+    android:orientation="horizontal" >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical">
+
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="5dp" >
+
+			<com.xidian.xienong.util.CircleImageView
+				android:id="@+id/farmer_order_photo"
+				android:layout_width="45dp"
+				android:layout_height="45dp"
+				android:src="@drawable/author" />
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:orientation="vertical">
+	            <RelativeLayout 
+	                android:layout_width="match_parent"
+	            	android:layout_height="wrap_content">
+	            	<TextView
+			            android:id="@+id/farmer_order_name"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginLeft="10dp"
+			            android:textSize="18sp"
+			            android:textColor="@color/MidnightBlue"
+			            android:textStyle="bold"
+			            android:text="小林" />
+	            	<TextView
+			            android:id="@+id/farmer_order_code"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_alignParentRight="true"
+			            android:layout_alignBottom="@id/farmer_order_name"
+			            android:textSize="16sp"
+			            android:textColor="@color/orange"
+			            android:text="*****" />
+	            	
+	            </RelativeLayout>
+	             <RelativeLayout 
+	                android:layout_width="match_parent"
+	            	android:layout_height="wrap_content"
+	            	android:layout_marginTop="3dp">
+	            	<TextView
+			            android:id="@+id/farmer_order_place"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginLeft="10dp"
+			            android:textSize="14sp"
+			            android:textColor="@color/MidnightBlue"
+			            android:text="陕西省西安市雁塔区" />
+	            	
+	            </RelativeLayout>
+	        </LinearLayout> 
+	    </LinearLayout>
+	    <View
+	        android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/hui" />
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="5dp"
+	        android:orientation="vertical">
+	       <TextView 
+		        android:id="@+id/btn_grab_order"
+		        android:layout_width="100dp"
+		        android:layout_height="40dp"
+		        android:layout_marginLeft="10dp"
+		        android:layout_marginRight="10dp"
+		        android:layout_centerVertical="true"
+		        android:layout_alignParentRight="true"
+		        android:text="抢单"
+		        android:textSize="18sp"
+		        android:gravity="center"
+		        android:textColor="@android:color/white"
+		        android:background="@drawable/corner"/>
+	        <LinearLayout 
+	            android:layout_toLeftOf="@id/btn_grab_order"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_centerVertical="true"
+	            android:layout_marginLeft="10dp"
+	            android:orientation="vertical">
+	            <TextView
+			        android:id="@+id/farmer_order_type" 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:gravity="left"
+			        android:textColor="@android:color/black"
+			        android:layout_marginBottom="5dp"
+			        android:text="农机类型：收割机"/>
+			    <TextView
+		            android:id="@+id/farmer_order_time" 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="left"
+		            android:textColor="@android:color/black"
+		            android:layout_marginBottom="5dp"
+		            android:text="预约时间：2016-10-13"/>
+			    <TextView
+		            android:id="@+id/farmer_order_cropType" 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="left"
+		            android:textColor="@android:color/black"
+		            android:layout_marginBottom="5dp"
+		            android:text="农田类型：平原"/>
+			     <TextView
+		            android:id="@+id/farmer_order_cropNumber" 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:gravity="left"
+		            android:textColor="@android:color/black"
+		            android:layout_marginBottom="5dp"
+		            android:text="农田亩数：1亩"/>
+	             
+	        </LinearLayout>
+		    
+		</RelativeLayout>
+	</LinearLayout>
+</LinearLayout>
+

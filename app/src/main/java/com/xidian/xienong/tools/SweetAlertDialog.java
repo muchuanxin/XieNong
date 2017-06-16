@@ -1,5 +1,6 @@
 package com.xidian.xienong.tools;
 
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -20,11 +21,7 @@ import com.xidian.xienong.R;
 
 import java.util.List;
 
-/**
- * Created by koumiaojuan on 2017/6/7.
- */
-
-public class SweetAlertDialog extends Dialog implements View.OnClickListener{
+public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     private View mDialogView;
     private AnimationSet mModalInAnim;
     private AnimationSet mModalOutAnim;
@@ -70,7 +67,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
     public static final int TIP_TYPE = 6;
 
     public static interface OnSweetClickListener {
-        public void onClick (SweetAlertDialog sweetAlertDialog);
+        public void onClick(SweetAlertDialog sweetAlertDialog);
     }
 
     public SweetAlertDialog(Context context) {
@@ -84,7 +81,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
         mProgressHelper = new ProgressHelper(context);
         mAlertType = alertType;
         mErrorInAnim = OptAnimationLoader.loadAnimation(getContext(), R.anim.error_frame_in);
-        mErrorXInAnim = (AnimationSet)OptAnimationLoader.loadAnimation(getContext(), R.anim.error_x_in);
+        mErrorXInAnim = (AnimationSet) OptAnimationLoader.loadAnimation(getContext(), R.anim.error_x_in);
         // 2.3.x system don't support alpha-animation on layer-list drawable
         // remove it from animation set
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
@@ -100,7 +97,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
             }
         }
         mSuccessBowAnim = OptAnimationLoader.loadAnimation(getContext(), R.anim.success_bow_roate);
-        mSuccessLayoutAnimSet = (AnimationSet)OptAnimationLoader.loadAnimation(getContext(), R.anim.success_mask_layout);
+        mSuccessLayoutAnimSet = (AnimationSet) OptAnimationLoader.loadAnimation(getContext(), R.anim.success_mask_layout);
         mModalInAnim = (AnimationSet) OptAnimationLoader.loadAnimation(getContext(), R.anim.modal_in);
         mModalOutAnim = (AnimationSet) OptAnimationLoader.loadAnimation(getContext(), R.anim.modal_out);
         mModalOutAnim.setAnimationListener(new Animation.AnimationListener() {
@@ -228,8 +225,8 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
                     mConfirmButton.setVisibility(View.GONE);
                     break;
                 case TIP_TYPE:
-                    mConfirmButton.setBackgroundResource(R.drawable.red_button_background);
-                    mWarningFrame.setVisibility(View.GONE);
+                	 mConfirmButton.setBackgroundResource(R.drawable.red_button_background);
+                     mWarningFrame.setVisibility(View.GONE);
                     break;
             }
             if (!fromCreate) {
@@ -298,9 +295,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener{
     }
     //add by kmj
     public SweetAlertDialog showConfirmButton (boolean isShow) {
-        mShowConfirm = isShow;
+    	mShowConfirm = isShow;
         if (mConfirmButton != null) {
-            mConfirmButton.setVisibility(mShowConfirm ? View.VISIBLE : View.GONE);
+        	mConfirmButton.setVisibility(mShowConfirm ? View.VISIBLE : View.GONE);
         }
         return this;
     }

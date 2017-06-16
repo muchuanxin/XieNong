@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.xidian.xienong.R;
 import com.xidian.xienong.agriculture.announcement.NewAnnounceActivity;
+import com.xidian.xienong.agriculture.find.FindActivity;
+import com.xidian.xienong.agriculture.resource.NewMachineActivity;
 
 /**
  * Created by koumiaojuan on 2017/6/8.
@@ -19,7 +21,7 @@ public class SnackbarUtil {
     // make()中的第一个参数，可以写当前界面中的任意一个view对象。
     private static Snackbar mSnackbar;
 
-    public static void show(final Context context,View view, String msg, int flag) {
+    public static void show(final Context context,View view, final String msg, int flag) {
 
         if (flag == 0) { // 短时显示
             mSnackbar = Snackbar.make(view, msg, Snackbar.LENGTH_SHORT);
@@ -45,8 +47,14 @@ public class SnackbarUtil {
             @Override public void onClick(View v) {
                 // Snackbar在点击“关闭”后消失
                 mSnackbar.dismiss();
-                Intent intent = new Intent(context, NewAnnounceActivity.class);
-                context.startActivity(intent);
+                if(msg.equals("您要发布农机需求吗?")){
+                    Intent intent = new Intent(context, NewAnnounceActivity.class);
+                    context.startActivity(intent);
+                }else{
+                    Intent intent = new Intent(context, NewMachineActivity.class);
+                    context.startActivity(intent);
+                }
+
             }
         });
 

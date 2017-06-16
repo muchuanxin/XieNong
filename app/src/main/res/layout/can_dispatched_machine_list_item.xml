@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+     <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="10dp">
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="20.0dp"
+            android:layout_height="20.0dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/checkbox_choose_icon"
+            android:button="@null"
+            android:clickable="false"
+            android:checked="false" />
+        <TextView 
+            android:id="@+id/avaliable_machine_id"
+            android:layout_toRightOf="@id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:text="农机1号"/>
+    </RelativeLayout>
+</LinearLayout>

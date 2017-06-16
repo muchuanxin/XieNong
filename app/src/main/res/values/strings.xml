@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">携农</string>
     <string name="machine_tagline">寻找您需要的农机</string>
+    <string name="worker_tagline">寻找您需要的农活</string>
     <string name="mall_tagline">绿色农产品直送</string>
     <!-- dialog -->
     <string name="default_progressbar">Default Progressbar:</string>
@@ -19,6 +20,59 @@
     <string name="confirm_publish_announce">您要发布农机需求吗?</string>
     <string name="confirm">确定</string>
 
+    <!-- publish machine-->
+    <string name="confirm_publish_machine">您要发布农机吗?</string>
+
     <!-- machine_image -->
     <string name="viewpager_indicator">%1$d/%2$d</string>
+
+
+
+
+
+    <!-- lx add-->
+
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <!-- request_dialog -->
+    <string name="sending_request">正在发送请求</string>
+    <!-- network -->
+    <string name="netstate">网络状态</string>
+    <string name="setnetwork">当前网络不可用，是否设置网络？</string>
+    <string name="ok_set">设置</string>
+    <string name="cancel_set">取消</string>
+    <!-- register -->
+    <string name="forget_pass_warn">提示 :\n密码应包含6位或6位以上字符</string>
+    <!-- farmer -->
+    <string name="tab_one_1">发现</string>
+    <string name="tab_two_1">订单</string>
+    <string name="tab_three_1">商城</string>
+    <string name="tab_four_1">我</string>
+    <!-- worker -->
+    <string name="tab_one_2">订单</string>
+    <string name="tab_two_2">资源</string>
+    <string name="tab_three_2">商城</string>
+    <string name="tab_four_2">我</string>
+
+
+    <!-- about -->
+    <string name="about">本软件力求解决农忙季节农用机器拥有者找不到农活,农民朋友找不到农用机器这一现实问题，旨在帮助农用机器持有者快速找到作业的农田，完成收割与耕种作业。</string>
+    <!-- announce -->
+    <string name="announce_tip">1、通过点击下方按钮或右上方按钮，您可以发布您的农机需求，所有使用过该软件的农机主都会看到您公布的需求。\n\n2、您可以在此处查看您已发布的农机需求详情。\n\n</string>
+    <!-- machine -->
+    <string name="machine_tip">1、通过点击下方按钮或右上方按钮，您可以发布您的农机，以便接受农户的农事需求。\n\n2、您可以在此处查看您已发布的农机。\n\n3、如果您需对已发布的农机进行修改，请直接点击要修改的农机，即可进行编辑修改。</string>
+    <!-- pushToRefresh -->
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="more">加载更多</string>
+    <string name="loading">正在加载...</string>
+
+    <!-- evaluate_worker -->
+    <string name="evaluate_tip">请您对本次服务进行评价！</string>
+
+
+
 </resources>

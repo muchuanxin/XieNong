@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical" >
+    <RelativeLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+       <CheckBox
+            android:id="@+id/checkBox_resource"
+            android:layout_width="20.0dp"
+            android:layout_height="20.0dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/checkbox_choose_icon"
+            android:button="@null"
+            android:clickable="false"
+            android:checked="false" />
+        <LinearLayout
+            android:layout_toRightOf="@id/checkBox_resource"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_centerVertical="true"
+        	android:layout_marginLeft="10dp"
+        	android:layout_marginRight="10dp"
+        	android:orientation="horizontal">
+	        <TextView 
+	            android:id="@+id/tv_dispatched_resource_machine"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:textColor="@android:color/black"
+	            android:textSize="18sp"
+	            android:text="收割机-1号"/>
+	         <TextView 
+	            android:id="@+id/tv_dispatched_resource_driver"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:textColor="@android:color/black"
+	            android:textSize="18sp"
+	            android:text="小敏"/>
+        </LinearLayout>
+    </RelativeLayout>
+    
+
+</LinearLayout>

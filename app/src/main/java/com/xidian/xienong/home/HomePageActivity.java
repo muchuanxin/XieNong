@@ -1,13 +1,19 @@
 package com.xidian.xienong.home;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +23,15 @@ import android.widget.TextView;
 
 import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.ImageAdapter;
-import com.xidian.xienong.agriculture.announcement.NewAnnounceActivity;
 import com.xidian.xienong.agriculture.find.FindActivity;
+import com.xidian.xienong.agriculture.me.AboutUsActivity;
+import com.xidian.xienong.agriculture.me.FeedbackActivity;
+import com.xidian.xienong.agriculture.me.InformationActivity;
+import com.xidian.xienong.agriculture.me.SettingActivity;
 import com.xidian.xienong.shoppingmall.ShoppingActivity;
 import com.xidian.xienong.util.ListenedScrollView;
 import com.xidian.xienong.util.MarqueeView;
 import com.xidian.xienong.util.ViewUpSearch;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -53,7 +61,13 @@ public class HomePageActivity extends AppCompatActivity {
         }
     };
     private ListenedScrollView scrollView;
-    private TextView machineEntrance,shoppingEntrance;
+    private TextView machineEntrance,workerEntrance,shoppingEntrance;
+    private Toolbar homepageToolbar;
+    private DrawerLayout mDrawerLayout;
+    private CoordinatorLayout mCoordinatorLayout;
+    private NavigationView mNavigationView;
+    private View head_view;
+    private LinearLayout information;
 
 
     @Override
@@ -61,8 +75,55 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.homepage_activity);
         initViews();
+        configViews();
         initData();
         initEvents();
+    }
+
+    private void configViews() {
+        // 设置显示Toolbar
+        setSupportActionBar(homepageToolbar);
+        // 设置Drawerlayout开关指示器，即Toolbar最左边的那个icon
+        ActionBarDrawerToggle mActionBarDrawerToggle =
+                new ActionBarDrawerToggle(this, mDrawerLayout, homepageToolbar, R.string.open, R.string.close);
+        mActionBarDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);
+
+        //给NavigationView填充顶部区域，也可在xml中使用app:headerLayout="@layout/header_nav"来设置
+        head_view= mNavigationView.inflateHeaderView(R.layout.header_navigation);
+        information=(LinearLayout)head_view.findViewById(R.id.rl_information);
+//    //给NavigationView填充Menu菜单，也可在xml中使用app:menu="@menu/menu_nav"来设置
+        mNavigationView.inflateMenu(R.menu.menu_nav);
+        onNavgationViewMenuItemSelected(mNavigationView);
+    }
+
+    private void onNavgationViewMenuItemSelected(NavigationView mNavigationView) {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                switch (item.getItemId()){
+                    case R.id.nav_menu_feedback:
+                        intent = new Intent(HomePageActivity.this, FeedbackActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_menu_aboutus:
+                        intent = new Intent(HomePageActivity.this, AboutUsActivity.class);
+                        startActivity(intent);
+                        break;
+                    case R.id.nav_menu_setting:
+                        intent = new Intent(HomePageActivity.this, SettingActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+                // Menu item点击后选中，并关闭Drawerlayout
+                item.setChecked(false);
+//                mDrawerLayout.closeDrawers();
+                return false;
+            }
+        });
     }
 
     private void initEvents() {
@@ -166,10 +227,26 @@ public class HomePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        workerEntrance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePageActivity.this,MachineEntranceActivity.class);
+                startActivity(intent);
+            }
+        });
         shoppingEntrance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, NewAnnounceActivity.class);
+                Intent intent = new Intent(HomePageActivity.this, ShoppingActivity.class);
+                startActivity(intent);
+            }
+        });
+        information.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(HomePageActivity.this, InformationActivity.class);
                 startActivity(intent);
             }
         });
@@ -222,12 +299,22 @@ public class HomePageActivity extends AppCompatActivity {
         search.setSearchContent("最新上市热销农产品");
     }
     private void initViews() {
+        homepageToolbar = (Toolbar)findViewById(R.id.homepage_toolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.id_homepage_drawerlayout);
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.id_homepage_coordinatorlayout);
+        mNavigationView = (NavigationView) findViewById(R.id.id_homepage_navigationview);
         viewPager = (ViewPager)findViewById(R.id.homepage_viewPager);
         group = (ViewGroup)findViewById(R.id.homepage_viewGroups);
         marquee = (MarqueeView)findViewById(R.id.headline);
         search = (ViewUpSearch)findViewById(R.id.search);
         scrollView = (ListenedScrollView)findViewById(R.id.homepage_scrollView);
         machineEntrance = (TextView)findViewById(R.id.machine_entrance);
+        workerEntrance = (TextView)findViewById(R.id.worker_entrance);
         shoppingEntrance = (TextView)findViewById(R.id.shopping_entrance);
     }
+
+//    @Override public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_nav, menu);
+//        return true;
+//    }
 }

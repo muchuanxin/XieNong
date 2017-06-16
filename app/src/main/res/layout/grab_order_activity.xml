@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xidian.xienong.agriculture.order.GrabOrderActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:ignore="MissingConstraints">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/grab_order_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:titleTextColor="@android:color/white" />
+    </android.support.design.widget.AppBarLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <RelativeLayout
+            android:id="@+id/rl_garb_order_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:orientation="horizontal">
+            <com.xidian.xienong.util.CircleImageView
+                android:id="@+id/grab_order_headphoto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/author"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+            <LinearLayout
+                android:id="@+id/grab_order_detail_1"
+                android:layout_toRightOf="@id/grab_order_headphoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
+                android:orientation="vertical" >
+                <TextView
+                    android:id="@+id/grab_order_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="遇见Angel"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black" />
+                <RelativeLayout
+                    android:id="@+id/rl_grab_tele"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:id="@+id/grab_order_tele"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp"
+                        android:text="电话：18729228245"
+                        android:textColor="@android:color/black" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/btn_tel"
+                        android:scaleType="fitXY"
+                        android:visibility="visible" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:id="@+id/grab_order_reservation_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="16sp"
+                        android:text="预约时间：2016-10-12"
+                        android:textColor="@android:color/black" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/grab_order_detail_2"
+            android:layout_below="@id/rl_garb_order_information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/Azure"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/grab_order_cropland_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="农田类型：山丘"
+                android:textColor="@color/MidnightBlue" />
+            <TextView
+                android:id="@+id/grab_order_cropNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_gravity="center_vertical"
+                android:textSize="16sp"
+                android:text="预约亩数：3亩"
+                android:textColor="@color/MidnightBlue"/>
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_below="@id/grab_order_detail_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal" >
+            <com.amap.api.maps.MapView
+                android:id="@+id/grabOrderMapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true" >
+            </com.amap.api.maps.MapView>
+            <LinearLayout
+                android:id="@+id/ll_garb_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal" >
+                <Button
+                    android:id="@+id/btn_garb_order_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/verify_corner"
+                    android:text="抢单"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:layout_margin="10dp"
+                    android:textSize="18sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+</LinearLayout>

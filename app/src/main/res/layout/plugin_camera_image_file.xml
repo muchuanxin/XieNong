@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/chunbai"
+    >
+    <RelativeLayout
+        android:id="@+id/headview"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="@color/orange"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="3dp">
+         <TextView
+            android:id="@+id/headerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:text="我的照片流"
+            android:textSize="20sp" />
+         <TextView
+            android:id="@+id/cancel_2"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:text="取消"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"/>
+        
+    </RelativeLayout>
+    
+    
+	<GridView
+        android:id="@+id/fileGridView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/headview"
+        android:layout_centerInParent="true"
+        android:horizontalSpacing="10dp"
+        android:numColumns="2"
+        android:verticalSpacing="10dp"
+        android:background="@color/chunbai" 
+        />
+    
+    
+</RelativeLayout>

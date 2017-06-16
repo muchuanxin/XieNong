@@ -1,9 +1,9 @@
 package com.xidian.xienong.photo;
 
+import android.graphics.Bitmap;
+
 import java.io.IOException;
 import java.io.Serializable;
-
-import android.graphics.Bitmap;
 
 
 public class ImageItem implements Serializable {
@@ -45,7 +45,7 @@ public class ImageItem implements Serializable {
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
 	}
-	public Bitmap getBitmap() {		
+	public Bitmap getBitmap() {
 		if(bitmap == null){
 			try {
 				bitmap = Bimp.revitionImageSize(imagePath);

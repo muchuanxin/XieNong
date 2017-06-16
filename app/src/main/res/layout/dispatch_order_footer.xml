@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WhiteSmoke"
+    android:orientation="vertical" >
+    <Button 
+        android:id="@+id/btn_dispatch_order"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="完成派单"
+        android:textColor="@android:color/white"
+        android:background="@drawable/corner"/>
+    <Button 
+        android:id="@+id/btn_dispatch_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="申请取消订单"
+        android:textColor="@android:color/white"
+        android:background="@drawable/verify_corner"/>
+    
+    <Button 
+        android:id="@+id/btn_dispatch_cancle_1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:text="取消订单"
+        android:visibility="gone"
+        android:textColor="@android:color/white"
+        android:background="@drawable/verify_corner"/>
+    <Button 
+        android:id="@+id/btn_dispatch_continue"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:text="继续作业"
+        android:visibility="gone"
+        android:textColor="@android:color/white"
+        android:background="@drawable/verify_corner"/>
+     <View 
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"/>
+    
+
+</LinearLayout>

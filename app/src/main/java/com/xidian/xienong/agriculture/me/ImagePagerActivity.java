@@ -6,9 +6,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.xidian.xienong.R;
 import com.xidian.xienong.util.HackyViewPager;
 
@@ -25,18 +28,17 @@ public class ImagePagerActivity  extends FragmentActivity {
     private int pagerPosition;
     private TextView indicator;
     private ArrayList<String> imageUrls = new ArrayList<String>();
+    private Toolbar toolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_detail_pager);
-
         pagerPosition = getIntent().getIntExtra("position", 1);
         imageUrls = (ArrayList<String>) getIntent().getSerializableExtra("httpurl");
         String[] urls = new String[imageUrls.size()];
         for(int i=0; i < imageUrls.size(); i++){
             urls[i] = imageUrls.get(i);
-            Log.i("kmj","url---" + urls[i]);
         }
 
         mPager = (HackyViewPager) findViewById(R.id.pager);
@@ -82,10 +84,12 @@ public class ImagePagerActivity  extends FragmentActivity {
     private class ImagePagerAdapter extends FragmentStatePagerAdapter {
 
         public String[] fileList;
+        public ImageLoader imageLoader;
 
         public ImagePagerAdapter(FragmentManager fm, String[] fileList) {
             super(fm);
             this.fileList = fileList;
+            this.imageLoader = ImageLoader.getInstance();
         }
 
         @Override
@@ -96,7 +100,8 @@ public class ImagePagerActivity  extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
             String url = fileList[position];
-            return ImageDetailFragment.newInstance(url);
+            this.imageLoader.init(ImageLoaderConfiguration.createDefault(ImagePagerActivity.this));
+            return new ImageDetailFragment().newInstance(url,imageLoader);
         }
 
     }

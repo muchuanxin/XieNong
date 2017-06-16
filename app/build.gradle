@@ -10,6 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi",  "arm64-v8a"
+        }
     }
     buildTypes {
         release {
@@ -27,12 +30,20 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'com.android.support:cardview-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.amap.api:3dmap:latest.integration'
+    compile 'com.amap.api:location:latest.integration'
+    compile 'com.amap.api:map2d:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
+    compile 'javax.annotation:javax.annotation-api:1.2'
+    compile 'com.jaeger.statusbaruitl:library:1.1.1'
+    compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
 }

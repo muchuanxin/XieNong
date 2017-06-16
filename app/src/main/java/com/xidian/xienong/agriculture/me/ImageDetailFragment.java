@@ -1,8 +1,11 @@
 package com.xidian.xienong.agriculture.me;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +13,20 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.nostra13.universalimageloader.utils.StorageUtils;
 import com.xidian.xienong.R;
 import com.xidian.xienong.photo.PhotoViewAttacher;
+
+import java.io.File;
 
 
 public class ImageDetailFragment extends Fragment {
@@ -22,14 +34,14 @@ public class ImageDetailFragment extends Fragment {
 	private ImageView mImageView;
 	private ProgressBar progressBar;
 	private PhotoViewAttacher mAttacher;
+	private ImageLoader imageLoader;
 
-	public static ImageDetailFragment newInstance(String imageUrl) {
+	public  ImageDetailFragment newInstance(String imageUrl, ImageLoader imageLoader) {
 		final ImageDetailFragment f = new ImageDetailFragment();
-
 		final Bundle args = new Bundle();
 		args.putString("url", imageUrl);
 		f.setArguments(args);
-
+		this.imageLoader = imageLoader;
 		return f;
 	}
 
@@ -37,7 +49,6 @@ public class ImageDetailFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mImageUrl = getArguments() != null ? getArguments().getString("url") : null;
-
 	}
 
 	@Override
@@ -45,7 +56,6 @@ public class ImageDetailFragment extends Fragment {
 		final View v = inflater.inflate(R.layout.image_detail_fragment, container, false);
 		mImageView = (ImageView) v.findViewById(R.id.image);
 		mAttacher = new PhotoViewAttacher(mImageView);
-		
 		mAttacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
 			
 			@Override
@@ -53,17 +63,17 @@ public class ImageDetailFragment extends Fragment {
 				getActivity().finish();
 			}
 		});
-		
 		progressBar = (ProgressBar) v.findViewById(R.id.image_loading);
+		imageLoader = ImageLoader.getInstance();
 		return v;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-		
-		ImageLoader.getInstance().displayImage(mImageUrl, mImageView, new SimpleImageLoadingListener() {
+
+
+		    imageLoader.displayImage(mImageUrl, mImageView, new SimpleImageLoadingListener() {
 			@Override
 			public void onLoadingStarted(String imageUri, View view) {
 				progressBar.setVisibility(View.VISIBLE);
@@ -100,10 +110,6 @@ public class ImageDetailFragment extends Fragment {
 				mAttacher.update();
 			}
 		});
-
-		
-		
-		
 	}
 
 }

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:id="@+id/ll_order_item"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal" >
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical">
+
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingTop="10dp"
+	        android:paddingBottom="5dp" >
+	
+	        <com.xidian.xienong.util.CircleImageView
+	            android:id="@+id/machine_publisher_photo"
+	            android:layout_width="45dp"
+	            android:layout_height="45dp"
+	            android:src="@drawable/author" />
+	        <LinearLayout 
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:orientation="vertical">
+	            <RelativeLayout 
+	                android:layout_width="match_parent"
+	            	android:layout_height="wrap_content">
+	            	<TextView
+			            android:id="@+id/machine_publisher_name"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginLeft="10dp"
+			            android:textSize="18sp"
+			            android:textColor="@color/MidnightBlue"
+			            android:textStyle="bold"
+			            android:text="小林" />
+	            	<ImageView 
+	            	    android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentRight="true"
+		                android:layout_centerVertical="true"
+		                android:src="@drawable/arrow_down"/>
+	            </RelativeLayout>
+	             <RelativeLayout 
+	                android:layout_width="match_parent"
+	            	android:layout_height="wrap_content"
+	            	android:layout_marginTop="3dp">
+	            	<TextView
+			            android:id="@+id/machine_publish_time"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginLeft="10dp"
+			            android:textSize="14sp"
+			            android:textColor="@color/MidnightBlue"
+			            android:text="2016-10-13 12:23" />
+	            	<TextView
+		                android:id="@+id/machine_state"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_alignParentRight="true"
+		                android:text="审核中"
+		                android:textColor="@color/red"
+		                android:textSize="14sp" />
+	            </RelativeLayout>
+	        </LinearLayout> 
+	    </LinearLayout>
+	    <View
+	        android:layout_width="fill_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="65dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/hui" />
+	    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="55dp">
+	        <ImageButton
+	            android:id="@+id/btn_modify"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_centerVertical="true"
+	            android:layout_marginRight="10dp"
+	            android:background="@null"
+	            android:visibility="gone"
+	            android:src="@drawable/machine_edit" />
+		    <LinearLayout
+		        android:layout_toLeftOf="@id/btn_modify" 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentLeft="true"
+		        android:orientation="vertical">
+			    <TextView
+			        android:id="@+id/register_machine_type" 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="left"
+			        android:textColor="@android:color/black"
+			        android:layout_marginLeft="10dp"
+			        android:layout_marginRight="10dp"
+			        android:layout_marginBottom="5dp"
+			        android:text="农机类型:收割机"/>
+			    <TextView
+			        android:id="@+id/register_machine_trademark" 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="left"
+			        android:textColor="@android:color/black"
+			        android:layout_marginLeft="10dp"
+			        android:layout_marginRight="10dp"
+			        android:layout_marginBottom="5dp"
+			        android:text="农机品牌:谷雨"/>
+			    <TextView
+		            android:id="@+id/register_machine_number" 
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="left"
+		            android:textColor="@android:color/black"
+		            android:layout_marginLeft="10dp"
+		            android:layout_marginRight="10dp"
+		            android:layout_marginBottom="5dp"
+		            android:text="台数：3台"/>
+			</LinearLayout>
+		</RelativeLayout>
+		<GridView 
+	        android:id="@+id/machinePicgridview"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="55dp"
+	        android:paddingLeft="10dp"
+	        android:paddingRight="10dp"
+	        android:paddingBottom="10dp"
+	        android:horizontalSpacing="3dp"        
+	        android:numColumns="3"
+	        android:scrollbars="none"
+	        android:visibility="gone"
+			android:verticalSpacing="5dp" >
+		</GridView>
+	</LinearLayout>
+</LinearLayout>
+
