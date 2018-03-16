@@ -3,6 +3,7 @@ package com.xidian.xienong.agriculture.me;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -22,7 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.xidian.xienong.R;
-import com.xidian.xienong.application.ConnectUtil;
+import com.xidian.xienong.network.Url;
 import com.xidian.xienong.util.Constants;
 import com.xidian.xienong.util.DialogFactory;
 import com.xidian.xienong.util.SharePreferenceUtil;
@@ -39,8 +40,7 @@ public class ChangeNameActivity extends AppCompatActivity{
     private EditText changeName;
     private ImageButton clearBtn;
     private SharePreferenceUtil sp;
-    private String userName="";
-    private ImageButton back;
+    private Toolbar mToolbar;
     private Button save;
     private RequestQueue requestQueue;
     private Dialog mDialog = null;
@@ -53,16 +53,13 @@ public class ChangeNameActivity extends AppCompatActivity{
         initViews();
         initDatas();
         initEvents();
-
     }
 
     private void initEvents() {
         // TODO Auto-generated method stub
-        back.setOnClickListener(new OnClickListener() {
-
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 finish();
             }
         });
@@ -104,29 +101,25 @@ public class ChangeNameActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                showRequestDialog();
-                StringRequest stringrequest = new StringRequest(Request.Method.POST, ConnectUtil.ChangeName,
+
+                StringRequest stringrequest = new StringRequest(Request.Method.POST, Url.ChangeName,
                         new Listener<String>() {
                             @Override
                             public void onResponse(String response) {
                                 // TODO Auto-generated method stub
                                 try {
+                                    Log.i("kmj","-----response-----" + response);
                                     JSONObject jb = new JSONObject(response);
                                     String result = jb.getString("reCode");
                                     String message = jb.getString("message");
                                     if (result.equals("SUCCESS")) {
                                         Log.i("kmj","保存成功");
                                         Toast.makeText(ChangeNameActivity.this, "保存成功",Toast.LENGTH_SHORT).show();
-                                        if(sp.getisWorker().equals("0")){
-                                            sp.setFarmerName(changeName.getText().toString());
-                                        }else{
-                                            sp.setWorkerName(changeName.getText().toString());
-                                        }
+                                        sp.setUserName(changeName.getText().toString());
                                         finish();
                                     }else{
                                         Toast.makeText(ChangeNameActivity.this, message,Toast.LENGTH_SHORT).show();
                                     }
-                                    dismissRequestDialog();
 
                                 } catch (JSONException e) {
                                     // TODO Auto-generated catch block
@@ -146,9 +139,8 @@ public class ChangeNameActivity extends AppCompatActivity{
                     protected Map<String, String> getParams() throws AuthFailureError {
                         // TODO Auto-generated method stub
                         Map<String, String> map = new HashMap<String, String>();
-                        map.put("id", sp.getisWorker().equals("0")? sp.getFarmerId():sp.getWorkerId());
+                        map.put("id", sp.getUserId());
                         map.put("name",changeName.getText().toString());
-                        map.put("isWorker",sp.getisWorker().equals("0")? "0":"1");
                         return map;
                     }
                 };
@@ -159,15 +151,17 @@ public class ChangeNameActivity extends AppCompatActivity{
 
     private void initDatas() {
         // TODO Auto-generated method stub
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         sp = new SharePreferenceUtil(ChangeNameActivity.this, Constants.SAVE_USER);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
-        userName = sp.getisWorker().equals("0")? sp.getFarmerName():sp.getWorkerName();
-        changeName.setText(userName);
+        changeName.setText(sp.getUserName());
     }
 
     private void initViews() {
         // TODO Auto-generated method stub
-        back = (ImageButton)findViewById(R.id.btn_change_name_back);
+        mToolbar = (Toolbar)findViewById(R.id.change_name_toolbar);
         save = (Button)findViewById(R.id.btn_save_name);
         changeName = (EditText)findViewById(R.id.tv_change_name);
         clearBtn = (ImageButton)findViewById(R.id.btn_clear_name);

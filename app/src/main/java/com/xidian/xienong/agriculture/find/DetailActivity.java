@@ -4,19 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.xidian.xienong.R;
 import com.xidian.xienong.agriculture.me.AllCommentActivity;
 import com.xidian.xienong.agriculture.me.AllMachineImageActivity;
 import com.xidian.xienong.model.Worker;
-
 import java.io.Serializable;
 
 
@@ -43,8 +40,6 @@ public class DetailActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.worker_detail_activity);
-		setTitle("详情");
-	/*	showDetailViews();*/
 		initViews();
 		initDatas();
 		initEvents();
@@ -88,7 +83,6 @@ public class DetailActivity extends AppCompatActivity {
 		setSupportActionBar(mToolbar);
 		getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		worker = (Worker) getIntent().getSerializableExtra("worker");
 		if(worker.getMachineImages().size()!=0){
 			rlMachineInfo.setVisibility(View.VISIBLE);

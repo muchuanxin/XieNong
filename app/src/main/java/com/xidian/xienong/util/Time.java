@@ -1,6 +1,7 @@
 package com.xidian.xienong.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -115,6 +116,18 @@ public class Time {
 		result=cal.get(Calendar.YEAR)+"-"+month+"-"+day;
 		return result;
 	}
+
+	public static String  getAmonthAgoDay(){
+		String mon = "";
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.MONTH, -1);
+		Date m = c.getTime();
+		mon = format.format(m);
+		return mon;
+	}
+
 	
 
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp">
+        <ImageButton
+            android:id="@+id/brand_arrow"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:src="@drawable/brand_arrow_down"/>
+        <View
+            android:id="@+id/view_left"
+            android:layout_toLeftOf="@id/brand_arrow"
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:background="@color/qianhuise" />
+        <HorizontalScrollView
+            android:id="@+id/brand_scrollView"
+            android:layout_toLeftOf="@id/view_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/id_brand_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal" >
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/brand_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center" />
+
+        <com.xidian.xienong.util.RecyclerViewHeader
+            android:id="@+id/recyclerViewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/brand_ad"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:orientation="vertical" >
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/brand_viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp" />
+                <LinearLayout
+                    android:id="@+id/brand_viewGroups"
+                    android:layout_marginBottom="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+                </LinearLayout>
+            </RelativeLayout>
+        </com.xidian.xienong.util.RecyclerViewHeader>
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

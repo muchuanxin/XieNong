@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/ad_shuiguo"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:descendantFocusability="beforeDescendants">
+                    <ImageView
+                        android:id="@+id/first_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:scaleType="fitXY"
+                        android:background="#0000"
+                        android:clickable="false"
+                        android:src="@drawable/ad_shuiguo"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.xidian.xienong.util.NoScrollGridView
+                        android:id="@+id/class_second_gridview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:horizontalSpacing="3dp"
+                        android:numColumns="2"
+                        android:scrollbars="none"
+                        android:verticalSpacing="5dp" >
+                    </com.xidian.xienong.util.NoScrollGridView>
+                </LinearLayout>
+                <!--
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/binggan"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:descendantFocusability="beforeDescendants">
+                        <ImageButton
+                            android:layout_width="110dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:background="#0000"
+                            android:clickable="false"
+                            android:src="@drawable/pingguo"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:textColor="#2A2A2A"
+                            android:text="苹果"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/penghuashipin"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:descendantFocusability="beforeDescendants">
+                        <ImageButton
+                            android:layout_width="110dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:background="#0000"
+                            android:clickable="false"
+                            android:src="@drawable/xiangjiao"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:textColor="#2A2A2A"
+                            android:text="香蕉"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/tangguoguodong"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:descendantFocusability="beforeDescendants">
+                        <ImageButton
+                            android:layout_width="110dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:background="#0000"
+                            android:clickable="false"
+                            android:src="@drawable/baicai"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:textColor="#2A2A2A"
+                            android:text="白菜"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/qiaokeli"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:descendantFocusability="beforeDescendants">
+                        <ImageButton
+                            android:layout_width="110dp"
+                            android:layout_height="130dp"
+                            android:scaleType="fitCenter"
+                            android:background="#0000"
+                            android:clickable="false"
+                            android:src="@drawable/biandou"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18dp"
+                            android:textColor="#2A2A2A"
+                            android:text="扁豆"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                -->
+
+            </LinearLayout>
+
+        </ScrollView>
+
+</LinearLayout>

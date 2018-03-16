@@ -1,15 +1,12 @@
 package com.xidian.xienong.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.xidian.xienong.R;
 import com.xidian.xienong.agriculture.announcement.NewAnnounceActivity;
-import com.xidian.xienong.agriculture.find.FindActivity;
 import com.xidian.xienong.agriculture.resource.NewMachineActivity;
 
 /**

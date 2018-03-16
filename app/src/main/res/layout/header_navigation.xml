@@ -8,12 +8,11 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.xidian.xienong.util.RoundedImageView
+    <com.xidian.xienong.util.CircleImageView
         android:id="@+id/id_header_face"
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:layout_marginTop="20dp"
-        android:scaleType="fitXY"
         android:src="@drawable/author" />
 
     <TextView
@@ -25,7 +24,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/id_header_url"
+        android:id="@+id/id_header_tele"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="18729228245"

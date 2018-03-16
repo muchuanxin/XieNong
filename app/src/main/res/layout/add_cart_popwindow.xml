@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/TransparentDegree">
+    <LinearLayout
+        android:id="@+id/ll_popwindow"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/TransparentDegree">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/ll_right_info"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/white"
+                android:orientation="horizontal"
+                android:paddingLeft="80dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/pop_cart_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="￥49.00"
+                        android:textColor="@color/orange"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="库存："
+                        android:textColor="@color/orange"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/pop_cart_current_volume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="750"
+                        android:textColor="@color/orange"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/pop_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="10dp"
+                    android:src="@drawable/cart_clear" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/id_publish_machine_button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_alignBottom="@id/ll_right_info"
+                android:layout_marginLeft="10dp"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/hui" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:textColor="@color/gary"
+                    android:text="购买数量" />
+                <TextView
+                    android:id="@+id/pop_reduce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cart_number_corner"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="12dp"
+                    android:textColor="@color/black"
+                    android:paddingRight="12dp"
+                    android:text="一" />
+                <TextView
+                    android:id="@+id/pop_num"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/cart_number"
+                    android:textColor="@color/black"
+                    android:text="1" />
+                <TextView
+                    android:id="@+id/pop_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="13dp"
+                    android:paddingRight="13dp"
+                    android:textColor="@color/black"
+                    android:background="@drawable/cart_number_corner"
+                    android:text="+" />
+            </LinearLayout>
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/hui" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/pop_add_cart"
+                    style="@style/whiteTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="确定"
+                    android:background="@color/orange"/>
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/pop_view"
+        android:layout_above="@id/ll_popwindow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/TransparentDegree" />
+</RelativeLayout>

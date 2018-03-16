@@ -1,11 +1,39 @@
 package com.xidian.xienong.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
+
+import com.xidian.xienong.util.PostParameter;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
 /**
  * Created by koumiaojuan on 2017/6/5.
  */
 
 public class Url {
-    public final static String API_HOST = "http://113.200.60.160:8080/Agriculture/";
+
+    public static final String UTF_8 = "UTF-8";
+    public static final String POST = "POST";
+    public static final String GET = "GET";
+    public static String HTTP_RE_ERROE_CODE = "";
+    private final static int READ_TIMEOUT = 20000;
+    private final static int CONNECT_TIMEOUT = 20000;
+
+    //public final static String API_HOST = "http://113.200.60.160:8080/Agriculture/";
+    //public final static String API_HOST = "http://192.168.0.38:8080/Agriculture/";
+    //public final static String API_HOST = "http://192.168.0.71:8080/Agriculture/";//范孙IP
+    //public final static String API_HOST = "http://47.93.31.35/XieNong/";
+    //public final static String API_HOST = "http://47.93.31.35/XieNong/";
+    public final static String API_HOST = "http://192.168.0.38:8080/XieNong/";
     public static String FarmerLogin = API_HOST + "FarmerLogin";
     public static String WorkerLogin = API_HOST + "WorkerLogin";
     public static String VerificationCode = API_HOST + "VerificationCode";
@@ -74,5 +102,152 @@ public class Url {
     public static String AgreeCancleOrder = API_HOST+"AgreeCancleOrder";//农户同意取消订单
     public static String RefuseCancleOrder = API_HOST+"RefuseCancleOrder";//农户拒绝取消订单
     public static String ApplyCancleOrder = API_HOST+"ApplyCancleOrder";//农户拒绝取消订单
+
+    public static String GetHomepageAd = API_HOST+"GetHomepageAd";
+    public static String AgricultureHeadline = API_HOST+"AgricultureHeadline";
+    public static String AppImages = API_HOST+"AppImages";
+    public static String IsLogin = API_HOST+"IsLogin";
+    public static String UserIsRegister= API_HOST+"UserIsRegister";
+    public static String UserRegister= API_HOST+"UserRegister";
+    public static String UserLogin= API_HOST+"UserLogin";
+    public static String ResetUserPassword= API_HOST+"ResetUserPassword";
+    public static String GetConsults= API_HOST+"GetConsults";
+
+    public static String GetHotCommodity= API_HOST+"GetHotCommodity";
+    public static String GetHotSecondCategory= API_HOST+"GetHotSecondCategory";
+    public static String GetCommodityByVariety= API_HOST+"GetCommodityByVariety";
+    public static String GetCommodityCategory= API_HOST+"GetCommodityCategory";
+
+    public static String GetRankInformation= API_HOST+"GetRankInformation";
+    public static String GetRecentMonthHotCommodityByVariety= API_HOST+"GetRecentMonthHotCommodityByVariety";
+
+    /*****www******/
+    public static String GetAllMallOrder=API_HOST+"GetAllMallOrder";
+    public static String GetWaitingToPayOrder=API_HOST+"GetWaitingToPayOrder";//待付款
+    public static String GetWaitingToDispatchGoods=API_HOST+"GetWaitingToDispatchGoods";//待发货
+    public static String GetWaitingToReceivingGoods=API_HOST+"GetWaitingToReceivingGoods";//待收货
+    public static String GetHaveSignedGoods=API_HOST+"GetHaveSignedGoods";//已签收
+    public static String GetWaitingToEvaluateMallOrders=API_HOST+"GetWaitingToEvaluateMallOrders";//待评价
+
+    //xinye
+    public static String AddCommodityToCart = API_HOST+"AddCommodityToCart";
+    public static String GetAllCommodityFromCart = API_HOST+"GetAllCommodityFromCart";
+    public static String DeleteCommodityFromCart = API_HOST+"DeleteCommodityFromCart";
+    public static String FinishModifyCart = API_HOST+"FinishModifyCart";
+    public static String CreateMallOrder = API_HOST+"CreateMallOrder";
+    public static String GetAllMyAddress = API_HOST+"GetAllMyAddress";
+    public static String AddMyAddress = API_HOST+"AddMyAddress";
+    public static String DeleteMyAddress = API_HOST+"DeleteMyAddress";
+    public static String SetDefaultAddress = API_HOST+"SetDefaultAddress";
+    public static String ModifyMyAddress = API_HOST+"ModifyMyAddress";
+
+    public static boolean isNetworkAvailable(Context context) {
+
+        ConnectivityManager connect = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connect == null) {
+            return false;
+        } else// get all network info
+        {
+            NetworkInfo[] info = connect.getAllNetworkInfo();
+            if (info != null) {
+                for (int i = 0; i < info.length; i++) {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static String encodeParameters(PostParameter[] postParams) {
+        StringBuffer buf = new StringBuffer();
+        for (int j = 0; j < postParams.length; j++) {
+            if (j != 0) {
+                buf.append("&");
+            }
+            try {
+                if (null != postParams[j]) {
+                    if (null != postParams[j].getName()) {
+                        buf.append(URLEncoder.encode(postParams[j].getName(), "utf-8")).append("=");
+                    }
+                    if (null != postParams[j].getValue()) {
+                        buf.append(URLEncoder.encode(postParams[j].getValue(), "utf-8"));
+                    }
+                }
+            } catch (java.io.UnsupportedEncodingException neverHappen) {
+            }
+        }
+        return buf.toString();
+    }
+
+    public static String httpRequest(String url, PostParameter[] postParams, String httpMethod) {
+        InputStream is = null;
+        String jsonSource = "";
+        try {
+            HttpURLConnection con = null;
+            OutputStream osw = null;
+            try {
+                con = (HttpURLConnection) new URL(url).openConnection();
+                con.setDoInput(true);
+                if (null != postParams || POST.equals(httpMethod)) {
+                    con.setRequestMethod(POST);
+                    con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    con.setRequestProperty("Charset", "UTF-8");
+                    con.setDoOutput(true);
+                    con.setDoInput(true);
+
+                    con.setReadTimeout(READ_TIMEOUT);
+                    con.setConnectTimeout(CONNECT_TIMEOUT);
+                    String postParam = "";
+                    if (postParams != null) {
+                        // 莴訋私薷褠覡毛貈止讗蟿脪毛蠆廷
+                        postParam = encodeParameters(postParams);
+                    }
+                    byte[] bytes = postParam.getBytes("UTF-8");
+                    con.setRequestProperty("Content-Length", Integer.toString(bytes.length));
+
+                    Log.i("mmm", "url----" + con.getURL() + "?" + postParam);
+                    osw = con.getOutputStream();
+                    osw.write(bytes);
+                    osw.flush();
+                    osw.close();
+                }
+                if (con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    is = con.getInputStream();
+                    InputStreamReader inputStreamReader = new InputStreamReader(is, "UTF-8");
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String temp = "";
+
+                    //
+
+                    while ((temp = bufferedReader.readLine()) != null) {
+                        jsonSource += temp;
+                    }
+                    // 跇視
+                    bufferedReader.close();
+                    is.close();
+                    Log.i("mmm", "jsonString=" + jsonSource);
+                    return jsonSource;
+
+                } else {
+                    HTTP_RE_ERROE_CODE = String.valueOf(con.getResponseCode());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                jsonSource = null;
+            } finally {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsonSource = null;
+        } finally {
+
+            return jsonSource;
+        }
+
+    }
+
 
 }

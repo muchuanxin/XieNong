@@ -18,7 +18,8 @@ public class OrderBean implements Serializable,Comparable<OrderBean>{
     private String worker_name;
     private String worker_telephone;
     private String telephone;//farmer
-    private String headphoto;//farmer
+    private String farmerHeadphoto;//farmer
+    private String workerHeadphoto;//farmer
     private String crop_address;
     private double crop_longtitude;
     private double crop_lantitude;
@@ -227,12 +228,23 @@ public class OrderBean implements Serializable,Comparable<OrderBean>{
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    public String getHeadphoto() {
-        return headphoto;
+
+    public String getFarmerHeadphoto() {
+        return farmerHeadphoto;
     }
-    public void setHeadphoto(String headphoto) {
-        this.headphoto = headphoto;
+
+    public void setFarmerHeadphoto(String farmerHeadphoto) {
+        this.farmerHeadphoto = farmerHeadphoto;
     }
+
+    public String getWorkerHeadphoto() {
+        return workerHeadphoto;
+    }
+
+    public void setWorkerHeadphoto(String workerHeadphoto) {
+        this.workerHeadphoto = workerHeadphoto;
+    }
+
     public boolean isEvaluate() {
         return isEvaluate;
     }

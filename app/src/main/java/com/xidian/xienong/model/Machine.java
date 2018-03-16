@@ -1,9 +1,14 @@
 package com.xidian.xienong.model;
 
+import android.support.annotation.NonNull;
+
+import com.xidian.xienong.util.Time;
+
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.List;
 
-public class Machine implements Serializable{
+public class Machine implements Serializable,Comparable<Machine>{
 	private String machine_id;
 	private String identification_number;
 	private String machineCategory;
@@ -134,8 +139,17 @@ public class Machine implements Serializable{
 	public void setMachineIdentify(List<MachineIdentify> machineIdentify) {
 		this.machineIdentify = machineIdentify;
 	}
-	
-	
-	
 
+
+
+	@Override
+	public int compareTo(@NonNull Machine o) {
+		if(Time.compare_time(this.getUploadTime(),o.getUploadTime()) == 1){
+			return -1;
+		}else if(Time.compare_time(this.getUploadTime(),o.getUploadTime()) == 0){
+			return 0;
+		}else{
+			return 1;
+		}
+	}
 }

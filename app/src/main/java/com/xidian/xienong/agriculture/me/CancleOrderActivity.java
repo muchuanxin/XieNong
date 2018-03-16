@@ -52,6 +52,7 @@ public class CancleOrderActivity extends AppCompatActivity{
     private String type="";
     private OKHttp httpUrl;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,12 @@ public class CancleOrderActivity extends AppCompatActivity{
     }
 
     private void initEvents() {
+        cancleOrderToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         cancleOrderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -113,11 +120,17 @@ public class CancleOrderActivity extends AppCompatActivity{
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismiss();
-                        if(sp.getisWorker().equals("0")){
+//                        if(sp.getisWorker().equals("0")){
+//                            requestCancleOrder();
+//                        }else{
+//                            CancleOrder();
+//                        }
+                        if(type.equals("farmerCancleOrder")){
                             requestCancleOrder();
                         }else{
                             CancleOrder();
                         }
+
                     }
                 })
                 .show();
@@ -224,7 +237,7 @@ public class CancleOrderActivity extends AppCompatActivity{
         httpUrl.post(Url.ApplyCancleOrder,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
-
+                Log.i("kmj","ApplyCancleOrder : " + Url.ApplyCancleOrder);
             }
 
             @Override
@@ -262,6 +275,9 @@ public class CancleOrderActivity extends AppCompatActivity{
     }
 
     private void initData() {
+        setSupportActionBar(cancleOrderToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         httpUrl = OKHttp.getInstance();
         order = (OrderBean) getIntent().getSerializableExtra("orderBean");
         type = getIntent().getType();
@@ -272,7 +288,7 @@ public class CancleOrderActivity extends AppCompatActivity{
     private void getCancleOrderReason() {
         // TODO Auto-generated method stub
         final Map<String, String> map = new HashMap<String, String>();
-        map.put("cancle_source", sp.getisWorker().equals("0")?"0":"1");
+        map.put("cancle_source", type.equals("farmerCancleOrder")?"0":"1");
         httpUrl.post(Url.GetAllCancleReason,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {

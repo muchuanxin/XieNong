@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ad_xumu"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:descendantFocusability="beforeDescendants">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:scaleType="fitXY"
+                    android:background="#0000"
+                    android:clickable="false"
+                    android:src="@drawable/ad_shuichan"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/xiangzao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:descendantFocusability="beforeDescendants">
+                    <ImageButton
+                        android:layout_width="110dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:background="#0000"
+                        android:clickable="false"
+                        android:src="@drawable/huoji"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="#2A2A2A"
+                        android:text="火鸡"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/yagaoyashua"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:descendantFocusability="beforeDescendants">
+                    <ImageButton
+                        android:layout_width="110dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:background="#0000"
+                        android:clickable="false"
+                        android:src="@drawable/lv"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="#2A2A2A"
+                        android:text="驴"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/weishengzhi"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:descendantFocusability="beforeDescendants">
+                    <ImageButton
+                        android:layout_width="110dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:background="#0000"
+                        android:clickable="false"
+                        android:src="@drawable/ji"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="#2A2A2A"
+                        android:text="鸡"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/xifashui"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:descendantFocusability="beforeDescendants">
+                    <ImageButton
+                        android:layout_width="110dp"
+                        android:layout_height="130dp"
+                        android:scaleType="fitCenter"
+                        android:background="#0000"
+                        android:clickable="false"
+                        android:src="@drawable/caoyu"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="#2A2A2A"
+                        android:text="草鱼"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:background="@drawable/commodity_concer">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_second_commodity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="白水特产"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
+            <TextView
+                android:id="@+id/tv_second_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:lines="1"
+                android:ellipsize="end"
+                android:text="新鲜脆甜苹果"
+                android:textColor="@color/gray"
+                android:textSize="14sp"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_second_pic"
+            android:layout_width="45dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/empty_picture"/>
+    </RelativeLayout>
+
+</LinearLayout>

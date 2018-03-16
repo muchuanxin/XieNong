@@ -109,6 +109,7 @@ public class NewAnnounceActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                Log.i("kmj","size ----" + Constants.machineCategory.size());
                 if(Constants.machineCategory.size() == 0){
                     getMachineCategory();
                 }else{
@@ -233,7 +234,7 @@ public class NewAnnounceActivity extends AppCompatActivity{
 
     private void publishAnnouncement() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("farmer_id","6219");
+        map.put("farmer_id",sp.getUserId());
         map.put("crop_address", crop_address.getText().toString());
         map.put("longtitude", Constants.location.get(3));
         map.put("lantitude", Constants.location.get(2));
@@ -421,11 +422,13 @@ public class NewAnnounceActivity extends AppCompatActivity{
     private void showMachineCategory() {
         machineCategoryAdapter.notifyDataSetChanged();
         machineDialog.show();
+        machineDialog.getWindow().setContentView(chooseMachineLayout);
     }
 
     private void showCroplandType() {
         croplandAdapter.notifyDataSetChanged();
         croplandDialog.show();
+        croplandDialog.getWindow().setContentView(chooseCropLayout);
     }
 
 

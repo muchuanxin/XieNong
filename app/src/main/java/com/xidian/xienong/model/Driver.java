@@ -1,8 +1,10 @@
 package com.xidian.xienong.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
-public class Driver implements Serializable{
+public class Driver implements Serializable ,Comparable<Driver>{
 	private String driver_id;
 	private String driver_name;
 	private String driver_sex;
@@ -63,5 +65,17 @@ public class Driver implements Serializable{
 	public void setDriver_license_date(String driver_license_date) {
 		this.driver_license_date = driver_license_date;
 	}
-	
+
+
+	@Override
+	public int compareTo(@NonNull Driver o) {
+		if(Integer.parseInt(this.driver_id) < Integer.parseInt(o.driver_id)){
+			return 1;
+		}else if(Integer.parseInt(this.driver_id) == Integer.parseInt(o.driver_id)){
+			return 0;
+		}else{
+			return -1;
+		}
+
+	}
 }

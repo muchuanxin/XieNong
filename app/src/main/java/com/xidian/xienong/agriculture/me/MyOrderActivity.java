@@ -60,6 +60,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
     private List<OrderBean> list = new ArrayList<OrderBean>();
     public static ViewPagerAdapter mViewPagerAdapter;
     public static List<List<OrderBean>>  orders = new ArrayList<>();
+    public static List<OrderBean> allOrderList = new ArrayList<>();
     public static List<OrderBean> waitingOrderList = new ArrayList<>();
     public static List<OrderBean> receivedOrderList = new ArrayList<>();
     public static List<OrderBean> operingOrderList = new ArrayList<>();
@@ -112,7 +113,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         registerBroadcastReceiver();
         mTitles = getResources().getStringArray(R.array.tab_titles);
-        orders.add(list);
+        orders.add(allOrderList);
         orders.add(waitingOrderList);
         orders.add(receivedOrderList);
         orders.add(operingOrderList);
@@ -131,6 +132,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
         filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
         filter.addAction(Constants.HAS_EVALUATED_BY_FARMER);
         filter.addAction(Constants.HAS_AGREE_OR_REFUSE_BY_FARMER);
+        filter.addAction(Constants.HAS_CANCLED_BY_FARMER);
         registerReceiver(receiver, filter);
     }
 
@@ -139,15 +141,14 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
         @Override
         public void onReceive(Context arg0, Intent intent) {
             // TODO Auto-generated method stub
-            if(intent.getAction().equals(Constants.HAS_EVALUATED_BY_FARMER)){
-//                requestAnnounceList(Url.GetOperatedAnnouncement);
+            if(intent.getAction().equals(Constants.HAS_EVALUATED_BY_FARMER) || intent.getAction().equals(Constants.HAS_CANCLED_BY_FARMER)
+                    || intent.getAction().equals(Constants.HAS_AGREE_OR_REFUSE_BY_FARMER)){
                 currentItem = 4;
-                requestAnnounceList(Url.GetAllAnnouncement);
-            }else{
+                requestAnnounceList(Url.GetOperatedAnnouncement);
+            }else {
                 Log.i("kmj","---agree----");
-//                requestAnnounceList(Url.GetHaveReceivedAnnouncement);
                 currentItem = 2;
-                requestAnnounceList(Url.GetAllAnnouncement);
+                requestAnnounceList(Url.GetHaveReceivedAnnouncement);
             }
 
         }
@@ -155,7 +156,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
 
     public void requestAnnounceList(final String url) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("farmer_id", "6223");
+        map.put("farmer_id", sp.getUserId());
         httpUrl.post(url,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -170,7 +171,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
             @Override
             public void onSuccess(Response response, String resultResponse) {
                 Log.i("kmj", "result : " + resultResponse);
-                parseResponse(resultResponse);
+                parseResponse(resultResponse,url);
             }
 
             @Override
@@ -181,7 +182,7 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
 
     }
 
-    private void parseResponse(String response) {
+    private void parseResponse(String response,String url) {
         try {
             JSONObject jb = new JSONObject(response);
             String result = jb.getString("reCode");
@@ -191,7 +192,6 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                 JSONArray orderlist = jb.getJSONArray("AnnouncementList");
                 for(int i=0; i < orderlist.length(); i++){
                     JSONObject object = orderlist.getJSONObject(i);
-
                     OrderBean order = new OrderBean();
                     order.setOrder_id(object.getString("order_id"));
                     order.setOrderCode(object.getString("orderCode"));
@@ -201,7 +201,8 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                     order.setWorker_name(object.getString("worker_name"));
                     order.setTelephone(object.getString("farmer_telephone"));
                     order.setWorker_telephone(object.getString("worker_telephone"));
-                    order.setHeadphoto(object.getString("head_photo"));
+                    order.setFarmerHeadphoto(object.getString("farmer_head_photo"));
+                    order.setWorkerHeadphoto(object.getString("worker_head_photo"));
                     order.setUpload_time(object.getString("upload_time"));
                     order.setCrop_address(object.getString("crop_address"));
                     order.setCrop_lantitude(object.getDouble("crop_lantitude"));
@@ -216,11 +217,9 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                     order.setAdviceState(object.getString("advice_state"));
                     order.setCancleTime(object.getString("cancle_time"));
                     order.setCancleReason(object.getString("cancle_reason"));
-//                    order.setApplyCancleReason(object.getString("apply_cancle_reason"));
-//                    order.setApplyCancleReasonId(object.getString("apply_cancle_reason_id"));
+                    order.setApplyCancleReason(object.getString("apply_cancle_reason"));
+                    order.setApplyCancleReasonId(object.getString("apply_cancle_reason_id"));
                     order.setPrice(object.getInt("work_price"));
-
-
                     JSONArray driverArray = object.getJSONArray("drivers");
                     List<Driver> drivers = new ArrayList<Driver>();
                     drivers.clear();
@@ -232,7 +231,6 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                         drivers.add(driver);
                     }
                     order.setDrivers(drivers);
-
                     JSONArray machineArray = object.getJSONArray("machines");
                     List<Machine> machines = new ArrayList<Machine>();
                     machines.clear();
@@ -254,11 +252,12 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
                         image.setUrl(jo.getString("image_url"));
                         machineImages.add(image);
                     }
-                    order.setMachineImages(machineImages);
 
+                    order.setMachineImages(machineImages);
                     list.add(order);
                 }
-                fillFragmentsWithData(list);
+                Log.i("kmj","--list size----" + list.size());
+                fillFragmentsWithData(list,url);
 
             }else {
                 Toast.makeText(MyOrderActivity.this, "获取订单失败，请重试", Toast.LENGTH_SHORT).show();
@@ -270,21 +269,23 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
         }
     }
 
-    private void fillFragmentsWithData(List<OrderBean> list) {
-        waitingOrderList.clear();
-        receivedOrderList.clear();
-        operingOrderList.clear();
-        finishedOrderList.clear();
-        for(OrderBean order : list){
-            if(order.getOrderState().equals("待接单")){
-                waitingOrderList.add(order);
-            }else if(order.getOrderState().equals("已接单")){
-                receivedOrderList.add(order);
-            }else if(order.getOrderState().equals("作业中")){
-                operingOrderList.add(order);
-            }else{
-                finishedOrderList.add(order);
-            }
+    private void fillFragmentsWithData(List<OrderBean> list,String url) {
+
+        if(url.equals(Url.GetAllAnnouncement)){
+            allOrderList.clear();
+            allOrderList.addAll(list);
+        }else if(url.equals(Url.GetWaitingToReceiveAnnouncement)){
+            waitingOrderList.clear();
+            waitingOrderList.addAll(list);
+        }else if(url.equals(Url.GetHaveReceivedAnnouncement)){
+            receivedOrderList.clear();
+            receivedOrderList.addAll(list);
+        }else if(url.equals(Url.GetIsOperatingAnnouncement)){
+            operingOrderList.clear();
+            operingOrderList.addAll(list);
+        }else{
+            finishedOrderList.clear();
+            finishedOrderList.addAll(list);
         }
         mViewPagerAdapter.notifyDataSetChanged();
         mViewPager.setCurrentItem(currentItem);
@@ -306,6 +307,22 @@ public class MyOrderActivity extends AppCompatActivity implements ViewPager.OnPa
     @Override
     public void onPageSelected(int position) {
         mToolbar.setTitle(mTitles[position]);
+        if(position == 0){
+            currentItem = 0;
+            requestAnnounceList(Url.GetAllAnnouncement);
+        }else if(position == 1){
+            currentItem = 1;
+            requestAnnounceList(Url.GetWaitingToReceiveAnnouncement);
+        }else if(position == 2){
+            currentItem = 2;
+            requestAnnounceList(Url.GetHaveReceivedAnnouncement);
+        }else if(position == 3){
+            currentItem = 3;
+            requestAnnounceList(Url.GetIsOperatingAnnouncement);
+        }else{
+            currentItem = 4;
+            requestAnnounceList(Url.GetOperatedAnnouncement);
+        }
 
     }
 

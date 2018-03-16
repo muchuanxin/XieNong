@@ -355,8 +355,8 @@ public class ReceivedOrderDetailActivity extends AppCompatActivity implements AM
         cropLatLng = new LatLng(lantitude, longtitude);
         builder.include(cropLatLng);
         changeCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(cropLatLng, 0, 0, 0)),null);
-        if(!orderBean.getHeadphoto().equals("")){
-            Glide.with(getApplicationContext()).load(orderBean.getHeadphoto()).centerCrop().placeholder(R.drawable.author).into(photo);
+        if(!orderBean.getFarmerHeadphoto().equals("")){
+            Glide.with(getApplicationContext()).load(orderBean.getFarmerHeadphoto()).centerCrop().placeholder(R.drawable.author).into(photo);
         }
         for(Resource rs : orderBean.getResources()){
             if(orderBean.getResources().indexOf(rs) == orderBean.getResources().size()-1){

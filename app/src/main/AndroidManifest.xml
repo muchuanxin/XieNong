@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.xidian.xienong" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.xidian.xienong">
 
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!--地图包、搜索包需要的基础权限-->
+    <!-- 地图包、搜索包需要的基础权限 -->
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,7 +15,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!--定位包、导航包需要的额外权限（注：基础权限也需要）  -->
+    <!-- 定位包、导航包需要的额外权限（注：基础权限也需要） -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -40,182 +41,247 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        tools:replace="icon, label, theme">
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="b818f7c8ff2b459df81bfaee9526ecfe" />
-        <activity android:name=".home.GuideActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
+            android:value="aa2ed0d2555c6bf33db87955bff6be77" />
+        <meta-data
+            android:name="TencentMapSDK"
+            android:value="IOIBZ-J5XC2-NHWU5-CYHG6-E3GAO-AIF4Q" />
+
+        <activity
+            android:name=".home.GuideActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".home.HomePageActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-        <activity
-            android:name=".shoppingmall.ShoppingActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.find.FindActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.ShoppingActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.announcement.NewAnnounceActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.announcement.MapChoosePointActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.MyOrderActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.AboutUsActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.FeedbackActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.SettingActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.AnnounceDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.CancleOrderActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.ImagePagerActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.AllMachineImageActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.EvaluateActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".home.MachineEntranceActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.order.RecommendOrderActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.order.DispatchResourceActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.order.GrabOrderActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.order.OperatedOrderDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.order.ReceivedOrderDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.order.DispatchInformationActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-        <activity
-            android:name=".agriculture.resource.InputResourceActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-        <activity
-            android:name=".agriculture.resource.ModifyDriverActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-        <activity
-            android:name=".agriculture.resource.NewMachineActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.find.DetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-
-
-
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.AllCommentActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.ChangePasswordActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-
-
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.InformationActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.ChangePhotoActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".agriculture.me.ChangeNameActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".photo.AlbumActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="nosensor">
-        </activity>
-
-
-
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".home.LoginActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".home.RegisterActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".home.ForgetPasswordActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.InputResourceActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.AddNewDriverActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.MachineDetailActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.MachineIntroductionOrMessageActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.ModifyDriverActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.NewMachineActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.brand.CommodityShowActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.brand.CommodityDetailActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.brand.CartActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.brand.AffirmOrderActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.brand.AffirmOrderFromCartActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.rank.RankInformationActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.me.AllMallOrderActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.me.MallOrderDetailActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".shoppingmall.me.EmptyActivity" />
+        <activity
+            android:name=".shoppingmall.me.MyAddressActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.me.AddAddressActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.me.AreaProvinceActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.me.AreaCityActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".shoppingmall.me.AreaDistrictActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.StatisticsActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.MachineStateActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".agriculture.resource.DriverStateActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".shoppingmall.me.ChangeAddressActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".shoppingmall.me.SelectAddressActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".shoppingmall.me.AllTheMallOrderActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

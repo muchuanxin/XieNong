@@ -166,9 +166,7 @@ public class GrabOrderActivity extends AppCompatActivity {
 
     private void grabOrder() {
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("worker_id", sp.getWorkerId());
-//        map.put("order_id", orderBean.getOrder_id());
-        map.put("worker_id", "41");
+        map.put("worker_id", sp.getUserId());
         map.put("order_id", orderBean.getOrder_id());
         httpUrl.post(Url.GrabOrder,map,new BaseCallback<String>(){
             @Override
@@ -213,7 +211,6 @@ public class GrabOrderActivity extends AppCompatActivity {
     }
 
     private void initDatas() {
-//
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -226,8 +223,8 @@ public class GrabOrderActivity extends AppCompatActivity {
         orderBean = (OrderBean) getIntent().getSerializableExtra("orderBean");
         longtitude = getIntent().getDoubleExtra("longtitude", 0.0);
         lantitude = getIntent().getDoubleExtra("lantitude", 0.0);
-        if(!orderBean.getHeadphoto().equals("")){
-            Glide.with(getApplicationContext()).load(orderBean.getHeadphoto()).centerCrop().placeholder(R.drawable.author).into(photo);
+        if(!orderBean.getFarmerHeadphoto().equals("")){
+            Glide.with(getApplicationContext()).load(orderBean.getFarmerHeadphoto()).centerCrop().placeholder(R.drawable.author).into(photo);
         }
         getSupportActionBar().setTitle(orderBean.getMachine_category());
         name.setText(orderBean.getFarmer_name());

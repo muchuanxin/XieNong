@@ -6,8 +6,7 @@
 	android:layout_height="match_parent"
 	android:background="@color/WhiteSmoke"
 	android:orientation="vertical"
-	tools:context="com.xidian.xienong.agriculture.me.FeedbackActivity"
-	>
+	tools:context="com.xidian.xienong.agriculture.me.AboutUsActivity">
 	<android.support.design.widget.AppBarLayout
 		android:id="@+id/app_bar_4"
 		android:layout_width="match_parent"
@@ -49,7 +48,6 @@
 	         android:textStyle="bold"
 	         android:textColor="@color/MidnightBlue"
 	         android:layout_gravity="center_horizontal"/>
-	    
 	    <RelativeLayout
 	        android:id="@+id/rl_check_update" 
 	        android:layout_width="match_parent"

@@ -112,7 +112,7 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
     private void refreshAnnounceList(final String url) {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("farmer_id", "6223");
+        map.put("farmer_id", sp.getUserId());
         httpUrl.post(url,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -151,6 +151,7 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
                     OrderBean order = new OrderBean();
                     order.setOrder_id(object.getString("order_id"));
+                    Log.i("kmj","--order id---" + order.getOrder_id());
                     order.setOrderCode(object.getString("orderCode"));
                     order.setFarmer_id(object.getString("farmer_id"));
                     order.setFarmer_name(object.getString("farmer_name"));
@@ -158,7 +159,8 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     order.setWorker_name(object.getString("worker_name"));
                     order.setTelephone(object.getString("farmer_telephone"));
                     order.setWorker_telephone(object.getString("worker_telephone"));
-                    order.setHeadphoto(object.getString("head_photo"));
+                    order.setFarmerHeadphoto(object.getString("farmer_head_photo"));
+                    order.setWorkerHeadphoto(object.getString("worker_head_photo"));
                     order.setUpload_time(object.getString("upload_time"));
                     order.setCrop_address(object.getString("crop_address"));
                     order.setCrop_lantitude(object.getDouble("crop_lantitude"));
@@ -173,10 +175,10 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                     order.setAdviceState(object.getString("advice_state"));
                     order.setCancleTime(object.getString("cancle_time"));
                     order.setCancleReason(object.getString("cancle_reason"));
-//                    order.setApplyCancleReason(object.getString("apply_cancle_reason"));
-//                    order.setApplyCancleReasonId(object.getString("apply_cancle_reason_id"));
+                    order.setApplyCancleReason(object.getString("apply_cancle_reason"));
+                    order.setApplyCancleReasonId(object.getString("apply_cancle_reason_id"));
                     order.setPrice(object.getInt("work_price"));
-
+                    Log.i("kmj","--order 1----");
 
                     JSONArray driverArray = object.getJSONArray("drivers");
                     List<Driver> drivers = new ArrayList<Driver>();
@@ -268,7 +270,7 @@ public class OrderFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         final OrderBean order1 = order;
         Map<String, String> map = new HashMap<String, String>();
         map.put("order_id",order1.getOrder_id());
-        map.put("isWorker",sp.getisWorker());
+        map.put("isWorker","0");
         httpUrl.post(Url.DeleteHaveOperatedOrder,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {

@@ -6,8 +6,7 @@
 		android:layout_height="match_parent"
 		android:background="@color/WhiteSmoke"
 		android:orientation="vertical"
-		tools:context="com.xidian.xienong.agriculture.me.FeedbackActivity"
-		>
+		tools:context="com.xidian.xienong.agriculture.me.FeedbackActivity">
 		<android.support.design.widget.AppBarLayout
 			android:id="@+id/app_bar_3"
 			android:layout_width="match_parent"
@@ -50,7 +49,6 @@
 	        android:layout_marginRight="5dp"
 	        android:text="100"
 	        android:textSize="14sp" />
-    
 	    <Button
 	        android:id="@+id/submit"
 	        android:layout_below="@id/content"

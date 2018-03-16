@@ -2,6 +2,7 @@
 <resources>
     <color name="colorPrimary">#00AEAE</color>
     <color name="colorPrimaryDark">#009393</color>
+    <!--<color name="colorAccent">#FE5400</color>-->
     <color name="colorAccent">#FF4081</color>
     <!--dialog-->
     <color name="float_transparent">#00000000</color>
@@ -32,7 +33,7 @@
 
     <!-- background -->
     <color name="Gainsboro">#DCDCDC</color>
-    <color name="WhiteSmoke">#F5F5F5</color>
+    <color name="WhiteSmoke">#F0F0F0</color>
     <color name="Ivoryblack">#0D0D0D</color>
     <color name="Lavender">#E6E6FA</color>
     <color name="MidnightBlue">#214283</color>
@@ -54,6 +55,8 @@
 
 
 
+    <color name="theme_bg_area_item_normal">#ffffff</color>
+    <color name="theme_bg_area_item_pressed">#f3f3f3</color>
 
     <color name="header_normal">#ef8000</color>
     <color name="header_pressed">#ef80002b</color>
@@ -79,6 +82,7 @@
     <color name="huifu_green">#81e2bc</color>
     <color name="black">#000000</color>
     <color name="blue">#0000FF</color>
+    <color name="iron">#CCCCCC</color>
 
     <color name="shengreen">#66CC99</color>
 
@@ -135,6 +139,28 @@
     <color name="light_yellow_color">#f5f5eb</color>
     <color name="dianhuise">#eeeeee</color>
 
+    <color name="grey_text_color_normal">#8A8A8A</color>
+    <color name="deep_transparent">#bb000000</color>
+    <color name="grey_line_bg">#E4E4E4</color>
+    <color name="grey_normal_bg">#EEEEEE</color>
 
+
+    <!-- 淡灰色 -->
+    <color name="crimson">#dc143c</color>
+    <!-- 紫色 -->
+    <color name="purple">#800080</color>
+
+    <color name="page_backgroup">#f2f2f2</color>
+    <!-- 灰色 -->
+    <color name="grey_color1">#333333</color>
+    <color name="grey_color3">#999999</color>
+
+    <!-- 灰色 -->
+    <color name="bg_Gray">#CCCCCC</color>
+    <!-- 黑色 -->
+    <color name="tv_Black">#000000</color>
+
+    <!-- 浅灰色 -->
+    <color name="bg_Gray_light">#EEEEEE</color>
 
 </resources>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/id_cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="5dp"
+    app:cardMaxElevation="6dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/iv_commodity_img"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/taozi"/>
+        <TextView
+            android:id="@+id/tv_commodity_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:text="新采摘的水果，保质期1个月，低温保存"/>
+        <TextView
+            android:id="@+id/tv_commodity_price"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_gravity="left"
+            android:gravity="left"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            android:text="10元/斤"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

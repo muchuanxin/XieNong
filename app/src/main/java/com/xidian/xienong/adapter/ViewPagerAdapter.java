@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.xidian.xienong.agriculture.me.OrderFragment;
 import com.xidian.xienong.agriculture.order.GrabOrderFragment;
+import com.xidian.xienong.shoppingmall.me.MallAllOrderFragment;
+import com.xidian.xienong.shoppingmall.me.MallMyOrderFragment;
 
 import java.util.List;
 
@@ -47,7 +49,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         for(Fragment fragment : mFragments){
             if(mark.equals("my_order")){
                 ((OrderFragment)fragment).refreshData();
-            }else{
+            }else if(mark.equals("my_mall_order")){
+        //       ((MallAllOrderFragment)fragment).refreshData();
+                ((MallMyOrderFragment)fragment).refreshData();
+            }
+            else{
                 ((GrabOrderFragment)fragment).refreshData();
             }
 

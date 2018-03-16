@@ -9,8 +9,8 @@ import android.media.ExifInterface;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.xidian.xienong.application.ConnectUtil;
 import com.xidian.xienong.model.ImageVo;
+import com.xidian.xienong.network.Url;
 
 import org.json.JSONObject;
 
@@ -40,8 +40,8 @@ public class ImageSettingUtil {
                                    PostParameter[] postParams, ImageVo imageVo, InputStream in,
                                    String uploadIU) {
 
-		String uploadUrl = uploadIU + ConnectUtil.encodeParameters(postParams);
-		Log.i("url", "imageUploadUrl---->" + uploadUrl);
+		String uploadUrl = uploadIU + Url.encodeParameters(postParams);
+		Log.i("kmj", "imageUploadUrl---->" + uploadUrl);
 		String reCode = "";
 		String imageUrl = "";
 		String message = "";
@@ -76,15 +76,15 @@ public class ImageSettingUtil {
 
 			out.flush();
 			out.close();
-			Log.i("liuhaoxian", "upload over");
+			Log.i("kmj", "upload over");
 			String line = "";
 			String result = "";
-			Log.i("liuhaoxian", "result=====>" + httpURLConnection.getResponseCode());
+			Log.i("kmj", "result=====>" + httpURLConnection.getResponseCode());
 			BufferedReader br = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-			Log.i("liuhaoxian", "result=====>" + result);
+			Log.i("kmj", "result=====>" + result);
 			JSONObject jb = new JSONObject(result);
 			reCode = jb.getString("reCode");
 			if(uploadIU.equals(Constants.uploadHeadImage)){

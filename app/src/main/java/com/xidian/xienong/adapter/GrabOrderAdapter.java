@@ -69,8 +69,8 @@ public class GrabOrderAdapter extends RecyclerView.Adapter<GrabOrderRecyclerView
             });
         }
         final OrderBean order= data.get(position);
-        if(!order.getHeadphoto().equals("") ||order.getHeadphoto() != null){
-            Glide.with(mContext).load(order.getHeadphoto()).centerCrop().placeholder(R.drawable.author).into(holder.farmer_order_photo);
+        if(!order.getFarmerHeadphoto().equals("") ||order.getFarmerHeadphoto() != null){
+            Glide.with(mContext).load(order.getFarmerHeadphoto()).centerCrop().placeholder(R.drawable.author).into(holder.farmer_order_photo);
         }
         holder.farmer_order_name.setText(order.getFarmer_name());
         if(order.getOrderState().equals("待接单")){

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.ViewPagerAdapter;
+import com.xidian.xienong.agriculture.resource.InputResourceActivity;
 import com.xidian.xienong.model.Driver;
 import com.xidian.xienong.model.Machine;
 import com.xidian.xienong.model.OrderBean;
@@ -24,6 +25,7 @@ import com.xidian.xienong.model.Resource;
 import com.xidian.xienong.network.BaseCallback;
 import com.xidian.xienong.network.OKHttp;
 import com.xidian.xienong.network.Url;
+import com.xidian.xienong.tools.SweetAlertDialog;
 import com.xidian.xienong.util.Constants;
 import com.xidian.xienong.util.SharePreferenceUtil;
 
@@ -95,7 +97,75 @@ public class RecommendOrderActivity extends AppCompatActivity implements ViewPag
         mTabLayout.setupWithViewPager(mRecommendViewPager);
         // 设置Tablayout的Tab显示ViewPager的适配器中的getPageTitle函数获取到的标题
         mTabLayout.setTabsFromPagerAdapter(mViewPagerAdapter);
-        requestOrderList(Url.RecommendOptimalOrder);
+        getMachineNumber();
+    }
+
+    private void getMachineNumber() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("worker_id", sp.getUserId());
+        httpUrl.post(Url.GetMachineNumber, map, new BaseCallback<String>() {
+            @Override
+            public void onRequestBefore() {
+                Log.i("kmj", "GetMachineNumber : " + Url.GetMachineNumber);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+                Log.i("kmj", "onFailure : " + e.toString());
+            }
+
+            @Override
+            public void onSuccess(Response response, String resultResponse) {
+                Log.i("kmj", "result : " + resultResponse);
+                try {
+                    JSONObject jb = new JSONObject(resultResponse);
+                    String result = jb.getString("reCode");
+                    if (result.equals("SUCCESS")) {
+                        if(jb.getString("machine_number").equals("0")){
+                            showPublishMachineTip();
+                        }else{
+                            requestOrderList(Url.RecommendOptimalOrder);
+                        }
+                    }else{
+                        Toast.makeText(RecommendOrderActivity.this, "异常情况！",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Response response, int errorCode, Exception e) {
+                Log.i("kmj", "error : " + e.toString());
+            }
+        });
+    }
+
+    private void showPublishMachineTip() {
+        Log.i("kmj","enter--111-");
+        new SweetAlertDialog(RecommendOrderActivity.this, SweetAlertDialog.TIP_TYPE)
+                .setTitleText("请先发布您的农机")
+                .setContentText("添加您的农机和司机后方可接单！")
+                .setCancelText("不，取消")
+                .setConfirmText("好，添加")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismiss();
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismiss();
+                        Intent intent = new Intent(RecommendOrderActivity.this,InputResourceActivity.class);
+                        startActivity(intent);
+                    }
+                })
+                .show();
     }
 
     private void initEvents() {
@@ -169,15 +239,11 @@ public class RecommendOrderActivity extends AppCompatActivity implements ViewPag
 
     private void requestOrderList(final String url) {
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("worker_id", sp.getWorkerId());
-        map.put("worker_id", "41");
+        map.put("worker_id", sp.getUserId());
         if(url.equals(Url.RecommendOptimalOrder)){
-//            map.put("worker_longtitude", sp.getLongtitude());
-//            map.put("worker_lantitude", sp.getLantitude());
-            map.put("worker_longtitude", "108.93849000");
-            map.put("worker_lantitude", "34.34024000");
+            map.put("worker_longtitude", sp.getLongtitude());
+            map.put("worker_lantitude", sp.getLantitude());
         }
-
         httpUrl.post(url,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -221,7 +287,7 @@ public class RecommendOrderActivity extends AppCompatActivity implements ViewPag
                     order.setFarmer_id(object.getString("farmer_id"));
                     order.setFarmer_name(object.getString("farmer_name"));
                     order.setTelephone(object.getString("telephone"));
-                    order.setHeadphoto(object.getString("head_photo"));
+                    order.setFarmerHeadphoto(object.getString("head_photo"));
 
                     order.setCrop_address(object.getString("crop_address"));
                     order.setCrop_lantitude(object.getDouble("crop_lantitude"));

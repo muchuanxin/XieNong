@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -137,6 +138,7 @@ public class ChangePhotoActivity extends AppCompatActivity implements ImageUploa
 			case Constants.TAKE_PICTURE:
 				Bimp.tempSelectBitmap.clear();
 				if (Bimp.tempSelectBitmap.size() < 9 && resultCode == RESULT_OK) {
+
 					String fileName = String.valueOf(System.currentTimeMillis());
 					Bitmap bm = (Bitmap) data.getExtras().get("data");
 					FileUtils.saveBitmap(bm, fileName);
@@ -145,7 +147,7 @@ public class ChangePhotoActivity extends AppCompatActivity implements ImageUploa
 					takePhoto.setBitmap(bm);
 					takePhoto.setImagePath(FileUtils.SDPATH + fileName+ ".JPEG");
 					Bimp.tempSelectBitmap.add(takePhoto);
-//					Log.i("kmj","-----paths.get(i).jpg------------"+Bimp.tempSelectBitmap.get(0).getImagePath());
+					Log.i("kmj","-----paths.get(i).jpg------------"+Bimp.tempSelectBitmap.get(0).getImagePath());
 				}
 				uploadPicture();
 				break;
@@ -172,6 +174,7 @@ public class ChangePhotoActivity extends AppCompatActivity implements ImageUploa
 					ToastCustom.makeToast(getApplicationContext(), "您最多只能选择一张图片");
 					Looper.loop();
 				}else{
+					Log.i("kmj","-----p1111--------");
 					for (int i = 0; i < Bimp.tempSelectBitmap.size(); i++) {
 						ImageVo imageVo = new ImageVo();
 						imageVo.setImagePath(Bimp.tempSelectBitmap.get(i).getImagePath());
@@ -181,8 +184,7 @@ public class ChangePhotoActivity extends AppCompatActivity implements ImageUploa
 						PostParameter[] postParams;
 						postParams = new PostParameter[3];
 						postParams[0] = new PostParameter("imageName", str + ".png");
-						postParams[1] = new PostParameter("isWorker", sp.getisWorker().equals("0")? "0":"1");
-						postParams[2] = new PostParameter("user_id", sp.getisWorker().equals("0")? sp.getFarmerId():sp.getWorkerId());
+						postParams[1] = new PostParameter("user_id", sp.getUserId());
 						InputStream is = ImageSettingUtil.compressJPG( Bimp.tempSelectBitmap.get(0).getImagePath());
 						ImageSettingUtil.uploadImage(ChangePhotoActivity.this, i, postParams, imageVo, is, Constants.uploadHeadImage);
 					}

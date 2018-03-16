@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.xidian.xienong.R;
+import com.xidian.xienong.util.CircleImageView;
 import com.xidian.xienong.util.RoundedImageView;
 
 /**
@@ -14,7 +15,7 @@ import com.xidian.xienong.util.RoundedImageView;
 
 public class OrderRecyclerViewHolder extends RecyclerView.ViewHolder{
 
-    public RoundedImageView publisher_photo;
+    public CircleImageView publisher_photo;
     public TextView publisher_name;
     public TextView publisher_time;
     public TextView type;
@@ -23,7 +24,7 @@ public class OrderRecyclerViewHolder extends RecyclerView.ViewHolder{
 
     public OrderRecyclerViewHolder(View itemView) {
         super(itemView);
-        publisher_photo = (RoundedImageView)itemView.findViewById(R.id.order_publisher_photo);
+        publisher_photo = (CircleImageView)itemView.findViewById(R.id.order_publisher_photo);
         publisher_name = (TextView)itemView.findViewById(R.id.order_publisher_name);
         publisher_time =(TextView)itemView.findViewById(R.id.order_publisher_time);
         iv_receive =(TextView)itemView.findViewById(R.id.order_publisher_state);

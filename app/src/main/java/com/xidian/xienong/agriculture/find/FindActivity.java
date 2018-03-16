@@ -1,6 +1,5 @@
 package com.xidian.xienong.agriculture.find;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -33,10 +32,8 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationClientOption.AMapLocationMode;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.services.core.LatLonPoint;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.xidian.xienong.R;
-import com.xidian.xienong.adapter.CategoryAdapter;
 import com.xidian.xienong.adapter.DistanceItemAdapter;
 import com.xidian.xienong.adapter.ImageAdapter;
 import com.xidian.xienong.adapter.IntelligenceAdapter;
@@ -44,7 +41,8 @@ import com.xidian.xienong.adapter.SortItemAdapter;
 import com.xidian.xienong.adapter.WorkerAdapter;
 import com.xidian.xienong.agriculture.announcement.NewAnnounceActivity;
 import com.xidian.xienong.agriculture.me.MyOrderActivity;
-import com.xidian.xienong.application.ConnectUtil;
+import com.xidian.xienong.home.LoginActivity;
+import com.xidian.xienong.model.Advertisement;
 import com.xidian.xienong.model.MachineCategory;
 import com.xidian.xienong.model.MachineImage;
 import com.xidian.xienong.model.Worker;
@@ -53,12 +51,13 @@ import com.xidian.xienong.network.OKHttp;
 import com.xidian.xienong.network.Url;
 import com.xidian.xienong.util.AdjustmentListViewHeight;
 import com.xidian.xienong.util.Constants;
-import com.xidian.xienong.util.ListenedScrollView;
+import com.xidian.xienong.util.MD5Util;
+import com.xidian.xienong.util.NetWorkUtil;
 import com.xidian.xienong.util.PullToRefreshLayout;
 import com.xidian.xienong.util.PullToRefreshLayout.OnRefreshListener;
 import com.xidian.xienong.util.PullableListView;
+import com.xidian.xienong.util.SharePreferenceUtil;
 import com.xidian.xienong.util.Utils;
-import com.xidian.xienong.util.ViewUpSearch;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,6 +70,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import okhttp3.Request;
+import okhttp3.Response;
+
 /**
  * Created by koumiaojuan on 2017/6/6.
  */
@@ -78,7 +80,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FindActivity extends AppCompatActivity{
 
     private Toolbar mToolbar;
-
     //轮播图部分
     private ViewPager viewPager;
     private ViewGroup group;
@@ -86,12 +87,7 @@ public class FindActivity extends AppCompatActivity{
     private ImageAdapter imageadapter;
     private boolean isContinue = true;
     private boolean threadStart = false;
-    private ViewUpSearch search;
-    private boolean isExpand = false;
     private int[] images = {R.mipmap.machine_ad1, R.mipmap.machine_ad2, R.mipmap.machine_ad3, R.mipmap.machine_ad4};
-
-
-
     private final Handler viewHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -99,21 +95,10 @@ public class FindActivity extends AppCompatActivity{
             super.handleMessage(msg);
         }
     };
-    private ListenedScrollView scrollView;
-
-    private LinearLayout information;
-    private View head_view;
-
-    //结果List显示部分
-    CategoryAdapter hListViewAdapter;
-    ImageView previewImg;
-
     private double longtitude,lantitude;
-    private RequestQueue requestQueue;
     private List<Worker> list = new ArrayList<Worker>();
     private String category_id = "0";
     private String scope = "10000000";
-
     private PullableListView listview;
     private PullToRefreshLayout pullToRefreshLayout = null;
     private RelativeLayout rlByCategory,rlByDistance,rlByIntelligence;
@@ -124,7 +109,6 @@ public class FindActivity extends AppCompatActivity{
     private SortItemAdapter itemAdapter;
     private DistanceItemAdapter distanceAdapter;
     private IntelligenceAdapter intelligenceAdapter;
-    boolean isOpen = false;
     private PopupWindow pop;
     private View categoryLayout,distanceLayout,intelligenceLayout;
     private ListView chooseListView,distanceListView,intelligenceListView;
@@ -134,6 +118,13 @@ public class FindActivity extends AppCompatActivity{
     private OKHttp httpUrl;
     private NestedScrollView scrollview;
     private RelativeLayout farmerOrder,publishRequirement;
+    private NetWorkUtil netWorkUtil;
+    private List<Advertisement> adLists = new ArrayList<>();
+    private SharePreferenceUtil sp;
+    private boolean isLogin = false;
+    private String message = "";
+    private String clickView = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +132,89 @@ public class FindActivity extends AppCompatActivity{
         setContentView(R.layout.find_activity);
         initViews();
         initData();
+        getMachineAdList();
         initEvents();
 
+    }
+
+    private void getMachineAdList() {
+        if(!netWorkUtil.isNetworkAvailable()){
+            initMachineAdData();
+            netWorkUtil.setNetwork();
+        }else {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put("ad_model", "3");
+            map.put("ad_page", "2");
+            map.put("ad_class", "2");
+            httpUrl.post(Url.GetHomepageAd, map, new BaseCallback<String>() {
+                @Override
+                public void onRequestBefore() {
+                    Log.i("kmj", "GetHomepageAd : " + Url.GetHomepageAd);
+                }
+
+                @Override
+                public void onFailure(Request request, Exception e) {
+                    Log.i("kmj", "onFailure : " + e.toString());
+                }
+
+                @Override
+                public void onSuccess(Response response, String resultResponse) {
+                    Log.i("kmj", "result : " + resultResponse);
+                    parseMachineAdResponse(resultResponse);
+                }
+
+                @Override
+                public void onError(Response response, int errorCode, Exception e) {
+                    Log.i("kmj", "error : " + e.toString());
+                }
+            });
+        }
+    }
+
+    private void parseMachineAdResponse(String resultResponse) {
+        try {
+            JSONObject jb = new JSONObject(resultResponse);
+            String result = jb.getString("reCode");
+            if (result.equals("SUCCESS")) {
+                adLists.clear();
+                JSONArray adlist = jb.getJSONArray("adList");
+                for(int i=0; i < adlist.length(); i++){
+                    JSONObject object = adlist.getJSONObject(i);
+                    Advertisement ad = new Advertisement();
+                    ad.setId(object.getString("ad_id"));
+                    ad.setPicture(object.getString("ad_picture"));
+                    ad.setUrl(object.getString("ad_url"));
+                    adLists.add(ad);
+                }
+                initMachineAdData();
+            }else{
+                Toast.makeText(FindActivity.this, "获取广告失败，请重试", Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    private void initData() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("附近农机");
+        sp = new SharePreferenceUtil(getApplicationContext(),Constants.SAVE_USER);
+        netWorkUtil = new NetWorkUtil(FindActivity.this);
+        httpUrl = OKHttp.getInstance();
+        //初始化client
+        mlocationClient = new AMapLocationClient(this.getApplicationContext());
+        //设置定位参数
+        mlocationClient.setLocationOption(getDefaultOption());
+        // 设置定位监听
+        mlocationClient.setLocationListener(locationListener);
+        mlocationClient.startLocation();
+        if(Constants.isFirstGetAllMachineCategory == true){
+            getMachineCategory();
+        }
     }
 
     private void whatOption() {
@@ -164,6 +236,206 @@ public class FindActivity extends AppCompatActivity{
                 finish();
             }
         });
+        // result List 相关
+        listview.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(FindActivity.this,DetailActivity.class);
+                intent.putExtra("worker", list.get(arg2));
+                startActivity(intent);
+            }
+        });
+        pullToRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+
+            @Override
+            public void onRefresh(PullToRefreshLayout refreshLayout) {
+                // TODO Auto-generated method stub
+                // 下拉刷新操作
+                pullToRefreshLayout = refreshLayout;
+                if( pullToRefreshLayout != null){
+                    getMachineByCategoryAndDistance(category_id,scope);
+                }
+
+            }
+        });
+        rlByCategory.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                byCategory.setTextColor(Color.parseColor("#ef8000"));
+                arrow1.setBackgroundResource(R.drawable.choose_arrow_down_highlight);
+                PopWindow(v,byCategory,arrow1);
+            }
+        });
+
+        rlByDistance.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                byDistance.setTextColor(Color.parseColor("#ef8000"));
+                arrow2.setBackgroundResource(R.drawable.choose_arrow_down_highlight);
+                PopWindow(v,byDistance,arrow2);
+            }
+        });
+        rlByIntelligence.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                byIntelligence.setTextColor(Color.parseColor("#ef8000"));
+                arrow3.setBackgroundResource(R.drawable.choose_arrow_down_highlight);
+                PopWindow(v,byIntelligence,arrow3);
+            }
+        });
+
+        farmerOrder.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickView = "farmerOrder";
+                checkIsLogin(v);
+            }
+        });
+
+        publishRequirement.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickView = "publishRequirement";
+                checkIsLogin(v);
+            }
+        });
+
+        listview.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int localheight = 0;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        localheight = (int) event.getY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int sY = (int) event.getY();
+                        int scrollY = scrollview.getScrollY();
+                        int height = scrollview.getHeight();
+                        int scrollViewMeasuredHeight = scrollview.getChildAt(0)
+                                .getMeasuredHeight();
+                        //这个表示,当滑动到scrollview顶部的时候,
+                        if (scrollY == 0) {
+                            //检测到在listview里面手势向下滑动的手势,就下拉刷新,反之,则无法触发下拉刷新
+                            if (localheight - sY > 10) {
+                                // 取消拦截scrollview事件,listview不能刷新
+                                scrollview.requestDisallowInterceptTouchEvent(false);
+                                break;
+                            }
+                            // 拦截scrollview事件,listview可以刷新
+                            scrollview.requestDisallowInterceptTouchEvent(true);
+                        }
+                        //这个表示scrollview没恢复到顶部,在listview里面是无法触发下拉刷新的
+                        else {
+                            // 取消拦截scrollview事件,listview不能刷新
+                            scrollview.requestDisallowInterceptTouchEvent(false);
+                        }
+                        //滑动到底部的时候,自动去加载更多.
+                        if ((scrollY + height) == scrollViewMeasuredHeight) {
+                            // 滑到底部触发加载更多
+//                            onLoadMore();
+                        }
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        localheight = 0;
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void checkIsLogin(final View v) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("telephone", sp.getPhoneNumber());
+        map.put("password", MD5Util.getMD5String(sp.getPassword()));
+        map.put("token", sp.getToken());
+        httpUrl.post(Url.IsLogin, map, new BaseCallback<String>() {
+            @Override
+            public void onRequestBefore() {
+                Log.i("kmj", "IsLogin : " + Url.IsLogin);
+            }
+
+            @Override
+            public void onFailure(Request request, Exception e) {
+                Log.i("kmj", "onFailure : " + e.toString());
+            }
+
+            @Override
+            public void onSuccess(Response response, String resultResponse) {
+                Log.i("kmj", "result : " + resultResponse);
+                try {
+                    JSONObject jb = new JSONObject(resultResponse);
+                    String result = jb.getString("reCode");
+                    String msg = jb.getString("message");
+                    if(result.equals("SUCCESS")){
+                        if(v == farmerOrder){
+                            Intent  intent = new Intent(FindActivity.this, MyOrderActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Intent  intent = new Intent(FindActivity.this, NewAnnounceActivity.class);
+                            startActivity(intent);
+                        }
+
+                    }else{
+                        Intent  intent = new Intent(FindActivity.this, LoginActivity.class);
+                        intent.putExtra("clickView", clickView);
+                        startActivity(intent);
+                    }
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onError(Response response, int errorCode, Exception e) {
+                Log.i("kmj", "error : " + e.toString());
+            }
+        });
+    }
+
+    private void initMachineAdData() {
+        what = new AtomicInteger(0);
+        ArrayList<ImageView> imageviews = new ArrayList<ImageView>();
+        for(int i=0; i < 4;i++) {
+            ImageView image = new ImageView(this);
+            image.setScaleType(ImageView.ScaleType.FIT_XY);
+            if(!netWorkUtil.isNetworkAvailable()){
+                image.setBackgroundResource(images[i]);
+            }else {
+                Glide.with(FindActivity.this).load(adLists.get(i).getPicture()).centerCrop().into(image);
+            }
+            image.setImageResource(images[i]);
+            imageviews.add(image);
+        }
+        imageadapter = new ImageAdapter(imageviews);
+        for (int i = 0; i < 4 ; i++) {
+            ImageView imageView = new ImageView(this);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20, 20); //,
+            lp.setMargins(15, 0, 15, 0);
+            imageView.setLayoutParams(lp);
+            imageView.setPadding(5, 5, 5, 5);
+            if (i == 0)
+                imageView.setBackgroundResource(R.drawable.dot_red);
+            else
+                imageView.setBackgroundResource(R.drawable.dot_grey);
+            group.addView(imageView);
+        }
 
         viewPager.setAdapter(imageadapter);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -237,168 +509,6 @@ public class FindActivity extends AppCompatActivity{
             threadStart = true;
         }
 
-        // result List 相关
-        listview.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-                                    long arg3) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(FindActivity.this,DetailActivity.class);
-                intent.putExtra("worker", list.get(arg2));
-                startActivity(intent);
-            }
-        });
-        pullToRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-
-            @Override
-            public void onRefresh(PullToRefreshLayout refreshLayout) {
-                // TODO Auto-generated method stub
-                // 下拉刷新操作
-                pullToRefreshLayout = refreshLayout;
-                if( pullToRefreshLayout != null){
-                    getMachineByCategoryAndDistance(category_id,scope);
-                }
-
-            }
-        });
-        rlByCategory.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                byCategory.setTextColor(Color.parseColor("#ef8000"));
-                arrow1.setBackgroundResource(R.drawable.choose_arrow_down_highlight);
-                PopWindow(v,byCategory,arrow1);
-            }
-        });
-
-        rlByDistance.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                byDistance.setTextColor(Color.parseColor("#ef8000"));
-                arrow2.setBackgroundResource(R.drawable.choose_arrow_down_highlight);
-                PopWindow(v,byDistance,arrow2);
-            }
-        });
-        rlByIntelligence.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                byIntelligence.setTextColor(Color.parseColor("#ef8000"));
-                arrow3.setBackgroundResource(R.drawable.choose_arrow_down_highlight);
-                PopWindow(v,byIntelligence,arrow3);
-            }
-        });
-
-        farmerOrder.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent  intent = new Intent(FindActivity.this, MyOrderActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        publishRequirement.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent  intent = new Intent(FindActivity.this, NewAnnounceActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        listview.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int localheight = 0;
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        localheight = (int) event.getY();
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        int sY = (int) event.getY();
-                        int scrollY = scrollview.getScrollY();
-                        int height = scrollview.getHeight();
-                        int scrollViewMeasuredHeight = scrollview.getChildAt(0)
-                                .getMeasuredHeight();
-                        //这个表示,当滑动到scrollview顶部的时候,
-                        if (scrollY == 0) {
-                            //检测到在listview里面手势向下滑动的手势,就下拉刷新,反之,则无法触发下拉刷新
-                            if (localheight - sY > 10) {
-                                // 取消拦截scrollview事件,listview不能刷新
-                                scrollview.requestDisallowInterceptTouchEvent(false);
-                                break;
-                            }
-                            // 拦截scrollview事件,listview可以刷新
-                            scrollview.requestDisallowInterceptTouchEvent(true);
-                        }
-                        //这个表示scrollview没恢复到顶部,在listview里面是无法触发下拉刷新的
-                        else {
-                            // 取消拦截scrollview事件,listview不能刷新
-                            scrollview.requestDisallowInterceptTouchEvent(false);
-                        }
-                        //滑动到底部的时候,自动去加载更多.
-                        if ((scrollY + height) == scrollViewMeasuredHeight) {
-                            // 滑到底部触发加载更多
-//                            onLoadMore();
-                        }
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        localheight = 0;
-                        break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
-
-    }
-
-    private void initData() {
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("附近农机");
-        httpUrl = OKHttp.getInstance();
-        what = new AtomicInteger(0);
-        ArrayList<ImageView> imageviews = new ArrayList<ImageView>();
-        for(int i=0; i < 4;i++) {
-            ImageView image = new ImageView(this);
-            image.setScaleType(ImageView.ScaleType.FIT_XY);
-            image.setImageResource(images[i]);
-            imageviews.add(image);
-        }
-        imageadapter = new ImageAdapter(imageviews);
-        for (int i = 0; i < 4 ; i++) {
-            ImageView imageView = new ImageView(this);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20, 20); //,
-            lp.setMargins(15, 0, 15, 0);
-            imageView.setLayoutParams(lp);
-            imageView.setPadding(5, 5, 5, 5);
-            if (i == 0)
-                imageView.setBackgroundResource(R.drawable.dot_red);
-            else
-                imageView.setBackgroundResource(R.drawable.dot_grey);
-            group.addView(imageView);
-        }
-
-        // 与result  List有关
-        requestQueue = Volley.newRequestQueue(this);
-        //初始化client
-        mlocationClient = new AMapLocationClient(this.getApplicationContext());
-        //设置定位参数
-        mlocationClient.setLocationOption(getDefaultOption());
-        // 设置定位监听
-        mlocationClient.setLocationListener(locationListener);
-        mlocationClient.startLocation();
-        if(Constants.isFirstGetAllMachineCategory == true){
-            getMachineCategory();
-        }
     }
 
 
@@ -587,12 +697,11 @@ public class FindActivity extends AppCompatActivity{
     protected void getMachineCategory() {
         // TODO Auto-generated method stub
         Constants.machineCategory.clear();
-
         Map<String, String> map = new HashMap<String, String>();
         httpUrl.post(Url.GetAllMachineCategory,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
-
+                Log.i("kmj", "Url.GetAllMachineCategory : " + Url.GetAllMachineCategory);
             }
 
             @Override
@@ -670,25 +779,16 @@ public class FindActivity extends AppCompatActivity{
         // TODO Auto-generated method stub
         final String id = category_id;
         final String scope = distanceScope;
-        String url = id.equals("0")? ConnectUtil.GetAllMachineByDistance:ConnectUtil.GetMachineByDistance;
-
-
+        final String url = id.equals("0")? Url.GetAllMachineByDistance:Url.GetMachineByDistance;
         Map<String, String> map = new HashMap<String, String>();
         map.put("category_id", id);
-               // map.put("farmer_longtitude", String.valueOf(longtitude));
-        //map.put("farmer_lantitude", String.valueOf(lantitude));
-
-        map.put("farmer_longtitude", String.valueOf(108.93973000));
-        map.put("farmer_lantitude", String.valueOf(34.34041000));
+        map.put("farmer_longtitude", String.valueOf(longtitude));
+        map.put("farmer_lantitude", String.valueOf(lantitude));
         map.put("distance_scope", scope);
-        Log.i("lx   ",id);
-        Log.i("lx   ",longtitude+"");
-        Log.i("lx   ",lantitude+"");
-        Log.i("lx   ",scope);
         httpUrl.post(url,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
-
+                Log.i("kmj","url:"+url);
             }
 
             @Override

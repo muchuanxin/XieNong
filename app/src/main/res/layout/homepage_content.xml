@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/id_homepage_coordinatorlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/homepage_toolbar"
             android:layout_width="match_parent"
@@ -25,7 +27,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="57dp"
         android:orientation="vertical">
         <com.xidian.xienong.util.ListenedScrollView
             android:id="@+id/homepage_scrollView"
@@ -89,6 +90,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <ImageView
+                        android:id="@+id/iv_farmer_entrance"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
                         android:layout_weight="1"
@@ -122,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <ImageView
+                        android:id="@+id/iv_worker_entrance"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
                         android:layout_weight="1"
@@ -155,6 +158,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <ImageView
+                        android:id="@+id/iv_shopping_entrance"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
                         android:layout_weight="1"
@@ -179,7 +183,9 @@
                     android:id="@+id/search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true">
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp">
                 </com.xidian.xienong.util.ViewUpSearch>
                 <View
                     android:layout_below="@id/ll_shoppingmall"
@@ -189,4 +195,4 @@
         </com.xidian.xienong.util.ListenedScrollView>
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

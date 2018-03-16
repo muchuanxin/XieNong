@@ -44,9 +44,7 @@ public class AllCommentActivity extends AppCompatActivity {
 	private CommentAdapter adapter;
 	private View headerView;
 	private SharePreferenceUtil sp;
-	private RequestQueue requestQueue;
 	private String comprehensive_evaluation="";
-	private LinearLayout evaluate_1,evaluate_2;
 	private TextView label1,label2,label3,label4,label5;
 	private List<TextView> views = new ArrayList<TextView>();
 	private String whichActivity="";
@@ -59,13 +57,10 @@ public class AllCommentActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.all_comment_activity);
-		setTitle("全部评论");
-		/*showAllCommentViews();*/
 		initViews();
 		initDatas();
 		initEvents();
 		RequestComment();
-
 	}
 
 	private void initEvents() {
@@ -84,26 +79,22 @@ public class AllCommentActivity extends AppCompatActivity {
 			id = getIntent().getStringExtra("id");
 			map.put("worker_id", id);
 		}else{
+			//待修改
 			map.put("worker_id", sp.getWorkerId());
 		}
-
 		httpUrl.post(Url.GetAllComment,map,new BaseCallback<String>(){
 			@Override
 			public void onRequestBefore() {
-
 			}
 
 			@Override
 			public void onFailure(okhttp3.Request request, Exception e) {
-
 			}
 
 			@Override
 			public void onSuccess(Response response, String resultResponse) {
 				Log.i("kmj", "result : " + resultResponse);
-
-					parseResponse(resultResponse);
-
+                parseResponse(resultResponse);
 			}
 
 			@Override
@@ -111,10 +102,6 @@ public class AllCommentActivity extends AppCompatActivity {
 				Log.i("kmj", "error : " + e.toString());
 			}
 		});
-
-
-
-
 	}
 
 	protected void parseResponse(String response) {
@@ -141,7 +128,6 @@ public class AllCommentActivity extends AppCompatActivity {
 					cb.setFarmer_headPhoto(jo.getString("farmer_headphoto"));
 					lists.add(cb);
 				}
-
 				if(lists.size() == 0){
 					headerView.setVisibility(View.GONE);
 					list.setVisibility(View.GONE);
@@ -156,8 +142,6 @@ public class AllCommentActivity extends AppCompatActivity {
 					}
 					comprehensive_value.setText("综合评价:  " + comprehensive_evaluation);
 				}
-
-
 			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -172,7 +156,6 @@ public class AllCommentActivity extends AppCompatActivity {
 		getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		sp = new SharePreferenceUtil(getApplicationContext(), Constants.SAVE_USER);
-		requestQueue = Volley.newRequestQueue(getApplicationContext());
 		whichActivity = getIntent().getStringExtra("flag");
 		httpUrl = OKHttp.getInstance();
 	}
@@ -181,8 +164,6 @@ public class AllCommentActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		list = (ListView) findViewById(R.id.comment_list);
 		headerView = (View)LayoutInflater.from(getApplicationContext()).inflate(R.layout.comment_header, null);
-		evaluate_1 = (LinearLayout)headerView.findViewById(R.id.ll_evaluate_1);
-		evaluate_2 = (LinearLayout)headerView.findViewById(R.id.ll_evaluate_2);
 		label1 = (TextView)headerView.findViewById(R.id.label1);
 		label2 = (TextView)headerView.findViewById(R.id.label2);
 		label3 = (TextView)headerView.findViewById(R.id.label3);
@@ -195,7 +176,6 @@ public class AllCommentActivity extends AppCompatActivity {
 		views.add(label4);
 		views.add(label5);
 		comprehensive_value = (TextView)headerView.findViewById(R.id.comprehensive_value);
-
 		list.addHeaderView(headerView);
 		adapter = new CommentAdapter(lists, getApplicationContext());
 		list.setAdapter(adapter);

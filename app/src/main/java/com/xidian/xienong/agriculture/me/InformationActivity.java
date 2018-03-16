@@ -34,11 +34,9 @@ public class InformationActivity extends AppCompatActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.information_activity);
 		setTitle("个人信息");
-
 		initViews();
 		initData();
 		initEvents();
-
 	}
 
 	private void initEvents() {
@@ -78,8 +76,7 @@ public class InformationActivity extends AppCompatActivity{
 		if(!sp.getHeadPhoto().equals("")){
 			Glide.with(InformationActivity.this).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.portrait).into(head_photo);
 		}
-		user_name = sp.getisWorker().equals("0")? sp.getFarmerName():sp.getWorkerName();
-		name.setText(user_name);
+		name.setText(sp.getUserName());
 		tele.setText(sp.getPhoneNumber());
 	}
 
@@ -99,8 +96,7 @@ public class InformationActivity extends AppCompatActivity{
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		user_name = sp.getisWorker().equals("0")? sp.getFarmerName():sp.getWorkerName();
-		name.setText(user_name);
+		name.setText(sp.getUserName());
 		Glide.with(InformationActivity.this).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.portrait).into(head_photo);
 		Log.i("liuhaoxian", "onResume" + sp.getHeadPhoto());
 	}

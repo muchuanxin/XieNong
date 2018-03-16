@@ -150,7 +150,7 @@ public class AnnounceDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if(order.getOrderState().equals("待接单")){
+                if(order.getOrderState().equals("待处理")){
                     turnToCancleOrder();
                 }else{
                     if(btnCancle.getText().equals("同意取消该订单")){
@@ -377,7 +377,7 @@ public class AnnounceDetailActivity extends AppCompatActivity {
 
         orderCode.setText(order.getOrderCode());
         orderState.setText(order.getOrderState());
-        if(order.getOrderState().equals("待接单")){
+        if(order.getOrderState().equals("待处理")){
             iv_pic_image.setVisibility(View.GONE);
             picture.setVisibility(View.GONE);
             machine_name.setVisibility(View.GONE);
@@ -388,7 +388,7 @@ public class AnnounceDetailActivity extends AppCompatActivity {
             showCancleInfo.setVisibility(View.GONE);
             btnCancle.setVisibility(View.VISIBLE);
             btnEvaluate.setVisibility(View.GONE);
-        }else if(order.getOrderState().equals("已接单")|| order.getOrderState().equals("作业中") ||
+        }else if(order.getOrderState().equals("已处理")|| order.getOrderState().equals("作业中") ||
                 order.getOrderState().equals("已完成")){
             if(order.getMachineImages().size()==0){
                 Log.i("kmj","--order.getMachineImages().size()----" + order.getMachineImages().size());
@@ -427,7 +427,7 @@ public class AnnounceDetailActivity extends AppCompatActivity {
                     }
 
                 }
-            }else if(order.getOrderState().equals("已接单")){
+            }else if(order.getOrderState().equals("已处理")){
                 description.setVisibility(View.GONE);
                 if(advice_state.equals("0")){
                     concel_message.setVisibility(View.GONE);
@@ -534,6 +534,8 @@ public class AnnounceDetailActivity extends AppCompatActivity {
         if (requestCode == 301 ) {
             if (resultCode == 300 ) {
                 setResult(300);
+                Intent intent = new Intent(Constants.HAS_CANCLED_BY_FARMER);
+                sendBroadcast(intent);
                 finish();
             }
             if (resultCode == 500 ) {

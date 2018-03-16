@@ -23,7 +23,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:title="获取可派农机与司机"
+            app:title="可派农机与司机"
             app:titleTextColor="@android:color/white" />
     </android.support.design.widget.AppBarLayout>
     <LinearLayout

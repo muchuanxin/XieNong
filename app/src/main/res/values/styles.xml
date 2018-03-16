@@ -89,4 +89,54 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 设置屏幕变暗 -->
     </style>
+
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/iron</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <!--normal白色文本-->
+    <style name="whiteTextStyle">
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="blackTextStyleSmall">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="greyTextStyleSmaller">
+        <item name="android:textSize">@dimen/font_smaller</item>
+        <item name="android:textColor">@color/grey_text_color_normal</item>
+    </style>
+    <style name="colorPrimaryTextStyleSmall">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- -->
+
+    <style name="blackTextStyle">
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="colorPrimaryTextStyle">
+        <item name="android:textSize">@dimen/font_normal</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+    <style name="whiteTextStyleTitle">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="greyTextStyleSmall">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/grey_text_color_normal</item>
+    </style>
+    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/my_evaluate_ratingbar_color</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+        <item name="android:maxWidth">20dip</item>
+        <item name="android:minWidth">20dip</item>
+    </style>
 </resources>

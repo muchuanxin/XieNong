@@ -2,6 +2,7 @@ package com.xidian.xienong.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,13 +71,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderRecyclerViewHolder>{
             });
         }
         final OrderBean order= data.get(position);
-        if(!sp.getHeadPhoto().equals("") || sp.getHeadPhoto() != null){
-            Glide.with(mContext).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.author).into(holder.publisher_photo);
-        }
-        if(order.getOrderState().equals("待接单") || order.getOrderState().equals("已取消")){
-            holder.publisher_name.setText("我");
-        }else{
+        if(!order.getWorker_id().equals("")){
+            Glide.with(mContext).load(order.getWorkerHeadphoto()).centerCrop().placeholder(R.drawable.author).into(holder.publisher_photo);
             holder.publisher_name.setText(order.getWorker_name());
+        }else{
+            Glide.with(mContext).load(order.getFarmerHeadphoto()).centerCrop().placeholder(R.drawable.author).into(holder.publisher_photo);
+            holder.publisher_name.setText("我");
         }
         holder.type.setText("农机类型："+order.getMachine_category());
         holder.reservation_time.setText("预约时间："+ order.getReservation_time());
@@ -92,9 +92,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderRecyclerViewHolder>{
                 holder.iv_receive.setTextColor(mContext.getResources().getColor(R.color.red));
             }
         }else{
-            if(order.getOrderState().equals("已接单")){
+            if(order.getOrderState().equals("已处理")){
                 if(order.getAdviceState().equals("0")){
-                    holder.iv_receive.setText("已接单");
+                    holder.iv_receive.setText("已处理");
                 }else if(order.getAdviceState().equals("1")){
                     holder.iv_receive.setText("申请取消");
                     holder.iv_receive.setTextColor(mContext.getResources().getColor(R.color.qianlan));

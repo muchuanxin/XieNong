@@ -79,7 +79,7 @@ public class MachineAdapter extends RecyclerView.Adapter<MachineRecyclerViewHold
 		if(!sp.getHeadPhoto().equals("") || sp.getHeadPhoto() != null){
 			Glide.with(mContext).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.author).into(holder.machine_publisher_photo);
 		}
-		holder.machine_publisher_name.setText(sp.getWorkerName());
+		holder.machine_publisher_name.setText(sp.getUserName());
 		holder.register_machine_type.setText("农机类型："+machine.getCategory_name());
 		holder.register_machine_trademark.setText("农机品牌："+machine.getTrademark_name());
 		holder.register_machine_number.setText("农机数量："+ machine.getMachineNumber()+"台");

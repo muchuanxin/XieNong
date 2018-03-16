@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -33,8 +34,6 @@ import com.jaeger.library.StatusBarUtil;
 import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.DriverAdapter;
 import com.xidian.xienong.adapter.MachineAdapter;
-import com.xidian.xienong.agriculture.announcement.NewAnnounceActivity;
-import com.xidian.xienong.agriculture.find.FindActivity;
 import com.xidian.xienong.model.Driver;
 import com.xidian.xienong.model.Machine;
 import com.xidian.xienong.model.MachineIdentify;
@@ -53,7 +52,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,11 +63,12 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 import okhttp3.Request;
 import okhttp3.Response;
 
+
 /**
  * Created by koumiaojuan on 2017/6/12.
  */
 
-public class InputResourceActivity extends AppCompatActivity implements View.OnClickListener{
+public class InputResourceActivity extends AppCompatActivity implements OnClickListener,MachineAdapter.OnItemClickListener{
 
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mcollapsingbarLayout;
@@ -87,6 +89,9 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
     private RecyclerView.LayoutManager mLayoutManager;
     private View machineHeaderView;
     private FloatingActionButton publishMachineBtn;
+    private Button addNewDriver;
+    private ImageView imageView;
+    private boolean  isUpdate = false;
 
 
     @Override
@@ -100,24 +105,34 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
     }
 
     private void initEvents() {
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        publishMachineBtn.setOnClickListener(new View.OnClickListener() {
+        publishMachineBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 SnackbarUtil.show(InputResourceActivity.this,v, getString(R.string.confirm_publish_machine), 1);
-//                Intent intent = new Intent(InputResourceActivity.this, NewAnnounceActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(InputResourceActivity.this, NewMachineActivity.class);
+                startActivityForResult(intent,600);
+            }
+        });
+        addNewDriver.setOnClickListener(new OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(InputResourceActivity.this,AddNewDriverActivity.class);
+                startActivityForResult(intent, 500);
             }
         });
 
-
     }
+
 
     private void initData() {
         setSupportActionBar(mToolbar);
@@ -129,26 +144,33 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
         httpUrl = OKHttp.getInstance();
         sp = new SharePreferenceUtil(getApplicationContext(), Constants.SAVE_USER);
         mLayoutManager =  new LinearLayoutManager(InputResourceActivity.this, LinearLayoutManager.VERTICAL, false);
+        /*mLayoutManager.setAutoMeasureEnabled(true);*/
+
         if(!sp.getHeadPhoto().equals("")){
             Glide.with(getApplicationContext()).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.author).into(photo);
         }
         mcollapsingbarLayout.setTitle(sp.getWorkerName());
-        managerName.setText(sp.getWorkerName());
+        managerName.setText(sp.getUserName());
         machineAdapter = new MachineAdapter(InputResourceActivity.this,list);
+
+        machineAdapter.setOnItemClickListener(this);
+
         recyclerView.setAdapter(machineAdapter);
         recyclerView.setLayoutManager(mLayoutManager);
+/*        recyclerView.setHasFixedSize(true);
+        recyclerView.setNestedScrollingEnabled(false);*/
 //        mRecyclerView.addItemDecoration(new RecyclerDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.addItemDecoration(new RecyclerDecoration(
                InputResourceActivity.this, LinearLayoutManager.VERTICAL, R.drawable.divider));
         recyclerView.setNestedScrollingEnabled(false);
+
         getMachineNumberAndDriverNumber();
         getAllRegisteredMachine();
     }
 
     private void getAllRegisteredMachine() {
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("worker_id", sp.getWorkerId());
-        map.put("worker_id", "41");
+        map.put("worker_id", sp.getUserId());
         httpUrl.post(Url.GetAllRegisteredMachines,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -229,8 +251,12 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
                     machine.setMachineImage(machineImages);
                     list.add(machine);
                 }
+                Collections.sort(list);
                 machineAdapter.notifyDataSetChanged();
-
+                if(isUpdate){
+                    isUpdate = false;
+                    getMachineNumberAndDriverNumber();
+                }
             }else{
                 Toast.makeText(getApplicationContext(), "获取农机失败，请重试",Toast.LENGTH_SHORT).show();
             }
@@ -242,8 +268,7 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
 
     private void getAllDriver() {
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("worker_id", sp.getWorkerId());
-        map.put("worker_id", "41");
+        map.put("worker_id", sp.getUserId());
         httpUrl.post(Url.GetAddedDriver,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -277,6 +302,7 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
             if (result.equals("SUCCESS")) {
                 drivers.clear();
                 JSONArray driverlist = jb.getJSONArray("drivers");
+                Log.i("fmy","得到了driverlist"+driverlist.length());
                 for(int i=0; i < driverlist.length(); i++){
                     JSONObject object = driverlist.getJSONObject(i);
                     Driver driver = new Driver();
@@ -287,6 +313,8 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
                     driver.setDriver_identification(object.getString("driver_identification"));
                     drivers.add(driver);
                 }
+                Collections.sort(drivers);
+                driverLayout.removeAllViews();
                 adapter = new DriverAdapter(getApplicationContext(), drivers);
                 for(int i=0;i < drivers.size();i++){
                     View view = mInflater.inflate(R.layout.horizontal_driver_list_item,
@@ -301,11 +329,14 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
                     btntele.setTag("button");
                     view.setTag("view");
                     view.setId(i);
-                    tele.setOnClickListener(this);
+                    btntele.setOnClickListener(this);//改动
                     view.setOnClickListener(this);
                     driverLayout.addView(view);
                 }
-
+                if(isUpdate){
+                    isUpdate = false;
+                    getMachineNumberAndDriverNumber();
+                }
             }else{
                 Toast.makeText(getApplicationContext(), "获取司机失败，请重试",Toast.LENGTH_SHORT).show();
             }
@@ -317,7 +348,7 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
 
     private void getMachineNumberAndDriverNumber() {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("worker_id", sp.getWorkerId());
+        map.put("worker_id", sp.getUserId());
         httpUrl.post(Url.GetMyMachineNumberAndDriverNumber,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {
@@ -398,6 +429,8 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
         driverLayout = (LinearLayout)findViewById(R.id.id_driver_layout);
         recyclerView = (RecyclerView)findViewById(R.id.my_machie_recyclerview);
         publishMachineBtn = (FloatingActionButton)findViewById(R.id.id_publish_machine_button);
+        addNewDriver = (Button)findViewById(R.id.btn_add_driver);
+
     }
 
 
@@ -433,9 +466,13 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
                                 //                                          int[] grantResults)
                                 // to handle the case where the user grants the permission. See the documentation
                                 // for ActivityCompat#requestPermissions for more details.
-                                return;
+                                ActivityCompat.requestPermissions(InputResourceActivity.this,new String[]{Manifest.permission.CALL_PHONE},1);
+                                startActivity(intent);
                             }
-                            startActivity(intent);
+                            else {
+                                startActivity(intent);
+                            }
+
                         }
                     })
                     .show();
@@ -448,4 +485,54 @@ public class InputResourceActivity extends AppCompatActivity implements View.OnC
     }
 
 
+    @Override
+    public void onItemClick(View view, int position) {
+
+        {
+            // TODO Auto-generated method stub
+
+            Intent intent = new Intent(InputResourceActivity.this, MachineDetailActivity.class);
+            intent.putExtra("machine", list.get(position));
+            intent.putExtra("address", worker.getAddress());
+            intent.putExtra("simple_address", worker.getSimpleAddress());
+            intent.putExtra("machineIdentify", (Serializable) list.get(position).getMachineIdentify());
+            intent.putExtra("machineImage", (Serializable) list.get(position).getMachineImage());
+            intent.putExtra("position", position);
+            startActivityForResult(intent, 8);
+
+
+        }
+    }
+
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        isUpdate = true;
+        if (requestCode == 500 ) {
+            if(resultCode == RESULT_OK){
+                driverLayout.removeAllViews();
+                getMachineNumberAndDriverNumber();
+                getAllDriver();
+            }
+        }
+        if(requestCode == 600||requestCode == 8){
+            if(resultCode == RESULT_OK){
+                getMachineNumberAndDriverNumber();
+               getAllRegisteredMachine();
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 }

@@ -43,7 +43,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     private FrameLayout mErrorFrame;
     private FrameLayout mSuccessFrame;
     private FrameLayout mProgressFrame;
-    private SuccessTickView mSuccessTick;
+    private MySuccessTickView mSuccessTick;
     private ImageView mErrorX;
     private View mSuccessLeftMask;
     private View mSuccessRightMask;
@@ -149,7 +149,7 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         mErrorX = (ImageView)mErrorFrame.findViewById(R.id.error_x);
         mSuccessFrame = (FrameLayout)findViewById(R.id.success_frame);
         mProgressFrame = (FrameLayout)findViewById(R.id.progress_dialog);
-        mSuccessTick = (SuccessTickView)mSuccessFrame.findViewById(R.id.success_tick);
+        mSuccessTick = (MySuccessTickView)mSuccessFrame.findViewById(R.id.success_tick);
         mSuccessLeftMask = mSuccessFrame.findViewById(R.id.mask_left);
         mSuccessRightMask = mSuccessFrame.findViewById(R.id.mask_right);
         mCustomImage = (ImageView)findViewById(R.id.custom_image);

@@ -112,13 +112,10 @@ public class GrabOrderFragment extends Fragment implements SwipeRefreshLayout.On
 
     private void refreshRecommendOrderList(final String url) {
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("worker_id", sp.getWorkerId());
-        map.put("worker_id", "41");
+        map.put("worker_id", sp.getUserId());
         if(url.equals(Url.RecommendOptimalOrder)){
-//            map.put("worker_longtitude", sp.getLongtitude());
-//            map.put("worker_lantitude", sp.getLantitude());
-            map.put("worker_longtitude", "108.93849000");
-            map.put("worker_lantitude", "34.34024000");
+            map.put("worker_longtitude", sp.getLongtitude());
+            map.put("worker_lantitude", sp.getLantitude());
         }
 
         httpUrl.post(url,map,new BaseCallback<String>(){
@@ -165,7 +162,7 @@ public class GrabOrderFragment extends Fragment implements SwipeRefreshLayout.On
                     order.setFarmer_id(object.getString("farmer_id"));
                     order.setFarmer_name(object.getString("farmer_name"));
                     order.setTelephone(object.getString("telephone"));
-                    order.setHeadphoto(object.getString("head_photo"));
+                    order.setFarmerHeadphoto(object.getString("head_photo"));
 
                     order.setCrop_address(object.getString("crop_address"));
                     order.setCrop_lantitude(object.getDouble("crop_lantitude"));
@@ -300,7 +297,7 @@ public class GrabOrderFragment extends Fragment implements SwipeRefreshLayout.On
         final OrderBean order1 = order;
         Map<String, String> map = new HashMap<String, String>();
         map.put("order_id",order1.getOrder_id());
-        map.put("isWorker",sp.getisWorker());
+        map.put("isWorker","1");
         httpUrl.post(Url.DeleteHaveOperatedOrder,map,new BaseCallback<String>(){
             @Override
             public void onRequestBefore() {

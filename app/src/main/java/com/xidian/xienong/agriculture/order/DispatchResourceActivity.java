@@ -418,10 +418,7 @@ public class DispatchResourceActivity extends AppCompatActivity{
 
     private void getAvaliableResource() {
         Map<String, String> map = new HashMap<String, String>();
-//        map.put("worker_id", sp.getWorkerId());
-//        map.put("category_id", orderBean.getCategory_id());
-//        map.put("reservation_time",orderBean.getReservation_time());
-        map.put("worker_id", "41");
+        map.put("worker_id", sp.getUserId());
         map.put("category_id", orderBean.getCategory_id());
         map.put("reservation_time",orderBean.getReservation_time());
         httpUrl.post(Url.GetAvaliableResource,map,new BaseCallback<String>(){

@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xidian.xienong.R;
-import com.xidian.xienong.application.ConnectUtil;
+import com.xidian.xienong.network.Url;
 import com.xidian.xienong.tools.SweetAlertDialog;
 import com.xidian.xienong.util.PostParameter;
 import com.xidian.xienong.util.TakePhotoUtil;
@@ -191,13 +191,13 @@ public class UpdateManager {
 		new Thread(){
 			public void run() {
 				Message msg = new Message();
-				if (ConnectUtil
+				if (Url
 						.isNetworkAvailable(mContext)) {
 					PostParameter[] postParams = new PostParameter[1];
 					postParams[0] = new PostParameter("currVersion", curVersionName);
-					String jsonStr = ConnectUtil.httpRequest(
-							ConnectUtil.CheckNewVersion, postParams,
-							ConnectUtil.POST);
+					String jsonStr = Url.httpRequest(
+							Url.CheckNewVersion, postParams,
+							Url.POST);
 					if (jsonStr == null || jsonStr.equals("")) {
 						msg.what = 0;// 失败
 						msg.obj = "fail";
@@ -274,13 +274,13 @@ public class UpdateManager {
 		new Thread(){
 			public void run() {
 				Message msg = new Message();
-				if (ConnectUtil
+				if (Url
 						.isNetworkAvailable(mContext)) {
 					PostParameter[] postParams = new PostParameter[1];
 					postParams[0] = new PostParameter("currVersion", curVersionName);
-					String jsonStr = ConnectUtil.httpRequest(
-							ConnectUtil.CheckNewVersion, postParams,
-							ConnectUtil.POST);
+					String jsonStr = Url.httpRequest(
+							Url.CheckNewVersion, postParams,
+							Url.POST);
 					if (jsonStr == null || jsonStr.equals("")) {
 						msg.what = 0;// 失败
 						msg.obj = "fail";

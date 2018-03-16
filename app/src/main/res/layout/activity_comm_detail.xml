@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    >
+
+    <RelativeLayout
+        android:id="@+id/mcx_comm_detail_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#FF9900"/>
+
+    <RelativeLayout
+        android:id="@+id/mcx_comm_detail_top_bar"
+        android:layout_below="@id/mcx_comm_detail_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="#FF9900">
+
+        <RelativeLayout
+            android:id="@+id/mcx_comm_detail_back_btn"
+            android:layout_width="35dp"
+            android:layout_height="45dp">
+
+            <Button
+                android:layout_marginLeft="15dp"
+                android:layout_width="12dp"
+                android:layout_height="20dp"
+                android:background="@drawable/leftarrow"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/mcx_comm_detail_back_btn"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:text="商品详情"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/mcx_comm_detail_top_bar">
+
+        <ImageView
+            android:id="@+id/mcx_comm_detail_pic"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="35dp"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/mcx_comm_detail_name"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentRight="true"
+            android:textSize="24dp" />
+
+        <TextView
+            android:id="@+id/mcx_comm_detail_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mcx_comm_detail_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/mcx_comm_detail_sell_pri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/mcx_comm_detail_unit"
+            android:layout_alignBottom="@id/mcx_comm_detail_unit"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:id="@+id/mcx_comm_detail_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mcx_comm_detail_unit"
+            android:layout_alignRight="@id/mcx_comm_detail_unit"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:textSize="20dp"
+            android:text="选择数量"/>
+
+        <ImageButton
+            android:id="@+id/mcx_comm_detail_number_plus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:scaleType="fitCenter"
+            android:background="#0000"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/mcx_comm_detail_select"
+            android:layout_alignRight="@id/mcx_comm_detail_unit"
+            android:src="@drawable/plus"/>
+
+        <EditText
+            android:id="@+id/mcx_comm_detail_number_edit"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/mcx_comm_detail_number_plus"
+            android:layout_below="@id/mcx_comm_detail_select"
+            android:text="1"
+            android:textSize="22dp"
+            android:textAlignment="center"
+            android:numeric="integer"
+            android:singleLine="true"/>
+
+        <ImageButton
+            android:id="@+id/mcx_comm_detail_number_minus"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:scaleType="fitCenter"
+            android:background="#0000"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/mcx_comm_detail_number_edit"
+            android:layout_alignBottom="@id/mcx_comm_detail_number_plus"
+            android:src="@drawable/minus"/>
+
+        <TextView
+            android:id="@+id/mcx_comm_detail_repertory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/mcx_comm_detail_select"
+            android:layout_below="@id/mcx_comm_detail_number_edit"
+            android:textSize="18dp"
+            android:text="库存："/>
+
+        <TextView
+            android:id="@+id/mcx_comm_detail_repertory_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/mcx_comm_detail_repertory"
+            android:layout_below="@id/mcx_comm_detail_number_edit"
+            android:textSize="18dp"/>
+
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@id/mcx_comm_detail_pic"
+            android:textSize="18dp"
+            android:text="详细信息："/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/mcx_add_into_cart"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#FF9900"
+                android:textColor="#FFF"
+                android:textSize="22dp"
+                android:text="加入购物车"/>
+
+            <Button
+                android:id="@+id/mcx_buy_directly"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="#FF4500"
+                android:textColor="#FFF"
+                android:textSize="22dp"
+                android:text="直接购买"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

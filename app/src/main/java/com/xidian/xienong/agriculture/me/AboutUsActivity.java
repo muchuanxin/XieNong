@@ -35,7 +35,6 @@ public class AboutUsActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about_us_activity);
-        setTitle("关于");
         appVersionName = getAPPVersion();
         initViews();
         initData();
@@ -47,7 +46,6 @@ public class AboutUsActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     private void initEvents() {

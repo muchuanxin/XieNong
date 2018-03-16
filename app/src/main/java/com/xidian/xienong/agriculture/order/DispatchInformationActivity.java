@@ -68,11 +68,12 @@ public class DispatchInformationActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if(!cancleOrder2.getText().equals("取消订单")){
+                if(cancleOrder2.getText().equals("强制取消订单")&&cancleOrder.getText().equals("对方已拒绝取消订单")){
+                    finish();
+                } else if(!cancleOrder2.getText().equals("取消订单")){
                     Intent intent = new Intent(Constants.DISPATCH_INFO_CANCLE_ORDER_ACTION);
                     sendBroadcast(intent);
-                }
-                if(!cancleOrder.getText().equals("取消订单")){
+                } else if(!cancleOrder.getText().equals("取消订单")){
                     Intent intent = new Intent(Constants.CANCLE_REQUEST_ACTION);
                     sendBroadcast(intent);
                 }
@@ -243,14 +244,16 @@ public class DispatchInformationActivity extends AppCompatActivity{
     public void onBackPressed() {
         // TODO Auto-generated method stub
         super.onBackPressed();
-        if(!cancleOrder2.getText().equals("取消订单")){
+        if(cancleOrder2.getText().equals("强制取消订单")&&cancleOrder.getText().equals("对方已拒绝取消订单")){
+            finish();
+        } else if(!cancleOrder2.getText().equals("取消订单")){
             Intent intent = new Intent(Constants.DISPATCH_INFO_CANCLE_ORDER_ACTION);
             sendBroadcast(intent);
-        }
-        if(!cancleOrder.getText().equals("取消订单")){
+        } else if(!cancleOrder.getText().equals("取消订单")){
             Intent intent = new Intent(Constants.CANCLE_REQUEST_ACTION);
             sendBroadcast(intent);
         }
+
         finish();
     }
 

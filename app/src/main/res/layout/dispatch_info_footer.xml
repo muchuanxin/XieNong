@@ -12,6 +12,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:text="取消订单"
+        android:textSize="18sp"
         android:textColor="@android:color/white"
         android:background="@drawable/verify_corner"/>
     <Button 
@@ -23,6 +24,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="60dp"
         android:text="取消订单"
+        android:textSize="18sp"
         android:visibility="gone"
         android:textColor="@android:color/white"
         android:background="@drawable/verify_corner"/>

@@ -74,7 +74,7 @@ public class WorkerAdapter extends BaseAdapter{
 		((LayerDrawable)holder.ratingBar.getProgressDrawable()).getDrawable(2).setColorFilter(Color.YELLOW, Mode.SRC_ATOP);
 		holder.name.setText(worker.getWorkerName());
 		holder.type.setText(worker.getCategory_name());
-		holder.number.setText(worker.getMachine_number()+"̨");
+		holder.number.setText(worker.getMachine_number()+"");
 		holder.distance.setText(worker.getDistance()+"km");
 		holder.ratingBar.setRating(worker.getEvaluateVaule());
 		return convertView;

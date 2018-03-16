@@ -54,7 +54,6 @@ public class FeedbackActivity extends AppCompatActivity{
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.feedback_activity);
-        setTitle("意见反馈");
         initViews();
         initData();
         initEvents();
@@ -62,8 +61,7 @@ public class FeedbackActivity extends AppCompatActivity{
 
     private void initEvents() {
         // TODO Auto-generated method stub
-
-            mToolbar.setNavigationOnClickListener(new OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
@@ -106,66 +104,19 @@ public class FeedbackActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-
-               /* StringRequest stringrequest = new StringRequest(Request.Method.POST, ConnectUtil.UserFeedback,
-                        new Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                // TODO Auto-generated method stub
-                                try {
-                                    JSONObject jb = new JSONObject(response);
-                                    String result = jb.getString("reCode");
-                                    String message = jb.getString("message");
-                                    if (result.equals("SUCCESS")) {
-                                        Toast.makeText(FeedbackActivity.this, "反馈成功",Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }else{
-                                        Toast.makeText(FeedbackActivity.this, message,Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        // TODO Auto-generated method stub
-                        volleyError.printStackTrace();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        // TODO Auto-generated method stub
-                        Map<String, String> map = new HashMap<String, String>();
-                        map.put("username", sp.getisWorker().equals("0")? sp.getFarmerName():sp.getWorkerName());
-                        map.put("content",content.getText().toString());
-                        map.put("date", Time.getTime());
-                        map.put("osType","Android");
-                        map.put("version","2.0");
-                        map.put("other",sp.getisWorker().equals("0")? "fromFarmer":"fromWorker");
-                        return map;
-                    }
-                };
-                requestQueue.add(stringrequest);*/
-
-
                 Map<String, String> map = new HashMap<String, String>();
-                map.put("username", sp.getisWorker().equals("0")? sp.getFarmerName():sp.getWorkerName());
+                map.put("username", sp.getUserName());
                 map.put("content",content.getText().toString());
                 map.put("date", Time.getTime());
                 map.put("osType","Android");
                 map.put("version","2.0");
-                map.put("other",sp.getisWorker().equals("0")? "fromFarmer":"fromWorker");
                 httpUrl.post(Url.UserFeedback,map,new BaseCallback<String>(){
                     @Override
                     public void onRequestBefore() {
-
                     }
 
                     @Override
                     public void onFailure(okhttp3.Request request, Exception e) {
-
                     }
 
                     @Override
@@ -192,9 +143,6 @@ public class FeedbackActivity extends AppCompatActivity{
                         Log.i("kmj", "error : " + e.toString());
                     }
                 });
-
-
-
             }
         });
 

@@ -1,5 +1,6 @@
 package com.xidian.xienong.agriculture.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.xidian.xienong.R;
+import com.xidian.xienong.agriculture.find.FindActivity;
+import com.xidian.xienong.home.LoginActivity;
 import com.xidian.xienong.network.BaseCallback;
 import com.xidian.xienong.network.OKHttp;
 import com.xidian.xienong.network.Url;
@@ -40,7 +43,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.change_password_activity);
-		setTitle("修改密码");
 		initViews();
 		initDatas();
 		initEvents();
@@ -72,8 +74,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
 		getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		sp = new SharePreferenceUtil(this, Constants.SAVE_USER);
-		etOld.setText(sp.getPassword());
-		etOld.setEnabled(false);
+		if(sp.getPassword().equals("")){
+			etOld.setEnabled(true);
+		}else{
+			etOld.setText(sp.getPassword());
+			etOld.setEnabled(false);
+		}
+
+
 	}
 
 	private void initViews() {
@@ -88,26 +96,21 @@ public class ChangePasswordActivity extends AppCompatActivity {
 	private void submit() {
 		if(judge()){
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("id", sp.getisWorker().equals("0")? sp.getFarmerId():sp.getWorkerId());
+			map.put("id", sp.getUserId());
 			map.put("old_password", MD5Util.getMD5String(sp.getPassword()));
 			map.put("new_password", MD5Util.getMD5String(newPassword));
-			map.put("isWorker",sp.getisWorker().equals("0")? "0":"1");
-
 			httpUrl.post(Url.ResetPassword,map,new BaseCallback<String>(){
 				@Override
 				public void onRequestBefore() {
-
 				}
 
 				@Override
 				public void onFailure(okhttp3.Request request, Exception e) {
-
 				}
 
 				@Override
 				public void onSuccess(Response response, String resultResponse) {
 					Log.i("kmj", "result : " + resultResponse);
-
 					try {
 						JSONObject jb = new JSONObject(resultResponse);
 						String result = jb.getString("reCode");
@@ -134,9 +137,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 					Log.i("kmj", "error : " + e.toString());
 				}
 			});
-
-
-
 		}
 	}
 
@@ -176,7 +176,4 @@ public class ChangePasswordActivity extends AppCompatActivity {
 		// TODO Auto-generated method stub
 		super.onBackPressed();
 	}
-
-
-
 }

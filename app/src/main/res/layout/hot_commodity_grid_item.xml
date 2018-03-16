@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/commodity_concer"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/tv_hot_commodity_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红富士"
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+        <TextView
+            android:id="@+id/tv_hot_commodity_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="质优、味美、耐贮"
+            android:textSize="14sp"
+            android:lines="1"
+            android:ellipsize="end"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/gray" />
+        <ImageView
+            android:id="@+id/iv_hot_commodity_url"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitXY"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/empty_picture"/>
+    </LinearLayout>
+
+</LinearLayout>

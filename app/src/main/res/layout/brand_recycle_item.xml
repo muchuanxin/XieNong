@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/WhiteSmoke">
+    <TextView
+        android:id="@+id/tv_brand_name_1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="水果蔬菜"
+        android:textSize="16sp"
+        android:textColor="#606060"/>
+    <ImageView
+        android:id="@+id/iv_brand_pic"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/apple1"/>
+    <TextView
+        android:id="@+id/tv_no_content"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="暂无商品"
+        android:visibility="gone"
+        android:textSize="16sp"
+        android:textColor="#606060"/>
+    <com.xidian.xienong.util.NoScrollGridView
+        android:id="@+id/brand_gridview_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WhiteSmoke"
+        android:padding="5dp"
+        android:horizontalSpacing="3dp"
+        android:numColumns="2"
+        android:scrollbars="none"
+        android:verticalSpacing="5dp" >
+    </com.xidian.xienong.util.NoScrollGridView>
+
+
+</LinearLayout>

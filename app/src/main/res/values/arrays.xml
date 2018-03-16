@@ -4,8 +4,8 @@
 
   <string-array name="tab_titles">
     <item>全部</item>
-    <item>待接单</item>
-    <item>已接单</item>
+    <item>待处理</item>
+    <item>已处理</item>
     <item>作业中</item>
     <item>已完成</item>
   </string-array>
@@ -14,5 +14,12 @@
     <item>已接单</item>
     <item>作业中</item>
     <item>已完成</item>
+  </string-array>
+  <string-array name="shop_order_titles">
+    <item>全部</item>
+    <item>待付款</item>
+    <item>待发货</item>
+    <item>待收货</item>
+    <item>待评价</item>
   </string-array>
 </resources>
