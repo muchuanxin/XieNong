@@ -33,6 +33,7 @@ public class GuideActivity extends AppCompatActivity {
     private SharePreferenceUtil sp;
     private ImageAdapter imageadapter;
     private boolean isContinue = true;
+    private int a;
     private final Handler viewHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
