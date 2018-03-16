@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/WhiteSmoke"
+    android:orientation="vertical"
+    tools:context="com.xidian.xienong.agriculture.me.EvaluateActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="20dp"
+                android:text="评价"/>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginLeft="10dp" >
+                <ImageView
+                    android:id="@+id/detail_machine_image_one"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/xiaoxingshougeji"/>
+                <LinearLayout
+                    android:id="@+id/ll_worker_info"
+                    android:layout_toRightOf="@id/detail_machine_image_one"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:orientation="vertical" >
+                    <TextView
+                        android:id="@+id/detail_worker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:ellipsize="end"
+                        android:textSize="16dp"
+                        android:text="李明"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="亩数:"
+                            android:textSize="16dp"/>
+                        <TextView
+                            android:id="@+id/detail_cropNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="5"
+                            android:textSize="16dp"/>
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/detail_total_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="¥50"
+                        android:textColor="@color/red"
+                        android:layout_marginTop="10dp"
+                        android:textSize="16dp"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_work_satisfaction"
+                android:layout_width="match_parent"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@color/chunbai"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/work_satisfaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
+                    android:text="作业满意度"
+                    android:textSize="16dp"
+                    android:layout_centerVertical="true"/>
+
+                <RatingBar
+                    android:id="@+id/my_evaluate_rabar1"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/work_satisfaction"
+                    android:layout_centerVertical="true"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="1.0" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rl_service_satisfaction"
+                android:layout_width="match_parent"
+
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="@color/chunbai"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/service_satisfaction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="服务满意度"
+                    android:textSize="16dp"
+                    android:layout_marginBottom="@dimen/ui_10_dip"
+                    android:layout_centerVertical="true"/>
+
+                <RatingBar
+                    android:id="@+id/my_evaluate_rabar2"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/service_satisfaction"
+                    android:layout_centerVertical="true"
+                    android:isIndicator="false"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="1.0" />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10.0dp"
+                android:paddingLeft="4dp"
+                android:text="@string/evaluate_tip"
+                android:textColor="@color/red"
+                android:textSize="@dimen/title_size_16" />
+            <EditText
+                android:id="@+id/et_evaluate"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:gravity="top|left"
+                android:hint="请输入评价内容"
+                android:textSize="16dp"
+                android:background="@drawable/edit_shape"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="10dp">
+                <Button
+                    android:id="@+id/btn_comment_1"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/announce_state_corner2"
+                    android:textColor="@color/orange"
+                    android:textSize="16dp"
+                    android:text="干活精细" />
+                <Button
+                    android:id="@+id/btn_comment_2"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/announce_state_corner2"
+                    android:textColor="@color/orange"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="态度好" />
+                <Button
+                    android:id="@+id/btn_comment_3"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/announce_state_corner2"
+                    android:textColor="@color/orange"
+                    android:textSize="16dp"
+                    android:text="服务到位" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
+                <Button
+                    android:id="@+id/btn_comment_4"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/announce_state_corner2"
+                    android:textColor="@color/orange"
+                    android:textSize="16dp"
+                    android:text="服务很差" />
+                <Button
+                    android:id="@+id/btn_comment_5"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/announce_state_corner2"
+                    android:textColor="@color/orange"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="质量一般" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/post_comment"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:text="发表评论"
+                android:background="@drawable/corner"
+                android:textColor="@color/chunbai">
+            </Button>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
