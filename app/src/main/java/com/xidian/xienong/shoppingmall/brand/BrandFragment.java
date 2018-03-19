@@ -142,7 +142,9 @@ public class BrandFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onError(Response response, int errorCode, Exception e) {
-                Log.i("kmj", "error : " + e.toString());
+                if (e!=null){
+                    Log.i("kmj", "error : " + e.toString());
+                }
             }
         });
     }
