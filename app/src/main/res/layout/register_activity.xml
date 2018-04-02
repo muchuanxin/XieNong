@@ -24,8 +24,17 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:title="注册"
-            app:titleTextColor="@android:color/white" />
+           >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text="注册"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                />
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,35 +51,66 @@
             android:paddingRight="24dp">
 
             <!-- Name Label -->
-            <android.support.design.widget.TextInputLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+
+                android:layout_height="45dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/regist_user"/>
                 <EditText android:id="@+id/input_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:hint="昵称" />
-            </android.support.design.widget.TextInputLayout>
+                    android:hint="请输出昵称" />
+            </LinearLayout>
 
 
             <!-- mobile number -->
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/regist_phone"/>
                 <EditText android:id="@+id/input_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:hint="请输入手机号" />
-            </android.support.design.widget.TextInputLayout>
-
+            </LinearLayout>
+           <!-- information number-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/regist_password"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:orientation="vertical">
             <RelativeLayout
+                android:id="@+id/inform_line"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
+                android:layout_height="wrap_content"
                 android:background="@color/chunbai">
                 <TextView
                     android:id="@+id/getVerifyCode"
@@ -78,15 +118,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
+                    android:layout_marginBottom="10dp"
                     android:hint="获取校验码"
                     android:gravity="center"
                     android:textColorHint="@color/qianhuise"
-                    android:background="@drawable/verify_corner"/>
+                    android:background="#008A39"/>
                 <EditText
                     android:id="@+id/et_verify"
                     android:layout_toLeftOf="@+id/getVerifyCode"
@@ -96,48 +137,62 @@
                     android:layout_alignParentLeft="true"
                     android:background="@color/chunbai"/>
             </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gary" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gary" />
+            </LinearLayout>
+        </LinearLayout>
+
 
 
             <!-- Password Label -->
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/regist_password"/>
                 <EditText android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:hint="请输入密码"/>
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <!-- Password Re-enter Label -->
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/regist_password"/>
                 <EditText android:id="@+id/input_reEnterPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
                     android:hint="请再次输入密码"/>
-            </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
 
             <!-- Signup Button -->
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_register"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="60dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/corner"
+                android:background="@drawable/account_btn"
                 android:padding="12dp"
-                android:text="创建账号"
                 android:textColor="@android:color/white"/>
 
         </LinearLayout>

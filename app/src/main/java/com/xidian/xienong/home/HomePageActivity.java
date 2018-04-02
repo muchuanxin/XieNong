@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.xidian.xienong.MainActivity;
 import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.ImageAdapter;
 import com.xidian.xienong.agriculture.find.FindActivity;
@@ -288,7 +289,9 @@ public class HomePageActivity extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.nav_menu_feedback:
-                        checkIsLogin();
+                        intent = new Intent(HomePageActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        //    checkIsLogin();
                         break;
                     case R.id.nav_menu_aboutus:
                         intent = new Intent(HomePageActivity.this, AboutUsActivity.class);
