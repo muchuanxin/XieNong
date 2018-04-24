@@ -21,7 +21,9 @@
             android:id="@+id/tv_consult_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end"
             android:text="农业文化遗产成为农村发展新动能"/>

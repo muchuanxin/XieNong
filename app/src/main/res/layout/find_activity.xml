@@ -62,7 +62,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:scaleType="center"
-                            android:src="@drawable/publish_requirement"
+                            android:src="@drawable/publish_requirement_2"
                             android:layout_centerHorizontal="true"/>
                         <TextView
                             android:layout_below="@id/iv_farmer_order"
@@ -84,7 +84,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:scaleType="center"
-                            android:src="@drawable/order_icon"
+                            android:src="@drawable/order_icon_2"
                             android:layout_centerHorizontal="true"/>
                         <TextView
                             android:layout_below="@id/iv_publish_requirment"
