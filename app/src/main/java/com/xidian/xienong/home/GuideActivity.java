@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.ImageAdapter;
+import com.xidian.xienong.main.PageActivity;
 import com.xidian.xienong.util.Constants;
 import com.xidian.xienong.util.SharePreferenceUtil;
 
@@ -76,7 +77,7 @@ public class GuideActivity extends AppCompatActivity {
             @Override
             public void handleMessage(Message msg)
             {
-                Intent intent = new Intent(GuideActivity.this,HomePageActivity.class);
+                Intent intent = new Intent(GuideActivity.this,PageActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -111,7 +112,7 @@ public class GuideActivity extends AppCompatActivity {
                         @Override
                         public void handleMessage(Message msg)
                         {
-                            Intent intent = new Intent(GuideActivity.this,HomePageActivity.class);
+                            Intent intent = new Intent(GuideActivity.this, PageActivity.class);
                             startActivity(intent);
                             finish();
                         }

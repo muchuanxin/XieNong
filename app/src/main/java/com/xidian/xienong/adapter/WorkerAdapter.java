@@ -71,10 +71,10 @@ public class WorkerAdapter extends BaseAdapter{
 		if(worker.getMachineImages().size() !=0){
 			Glide.with(mContext).load(worker.getMachineImages().get(0).getUrl()).centerCrop().placeholder(R.drawable.empty_picture).into(holder.image);
 		}
-		((LayerDrawable)holder.ratingBar.getProgressDrawable()).getDrawable(2).setColorFilter(Color.YELLOW, Mode.SRC_ATOP);
+		((LayerDrawable)holder.ratingBar.getProgressDrawable()).getDrawable(2).setColorFilter(Color.rgb(224,158,50), Mode.SRC_ATOP);
 		holder.name.setText(worker.getWorkerName());
 		holder.type.setText(worker.getCategory_name());
-		holder.number.setText(worker.getMachine_number()+"");
+		holder.number.setText(worker.getMachine_number()+"辆");
 		holder.distance.setText(worker.getDistance()+"km");
 		holder.ratingBar.setRating(worker.getEvaluateVaule());
 		return convertView;

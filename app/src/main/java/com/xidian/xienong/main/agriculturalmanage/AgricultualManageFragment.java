@@ -1,4 +1,4 @@
-package com.xidian.xienong.home;
+package com.xidian.xienong.main.agriculturalmanage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,14 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,12 +33,12 @@ import com.xidian.xienong.R;
 import com.xidian.xienong.adapter.ImageAdapter;
 import com.xidian.xienong.agriculture.find.FindActivity;
 import com.xidian.xienong.agriculture.me.AboutUsActivity;
-import com.xidian.xienong.agriculture.me.ChangePasswordActivity;
 import com.xidian.xienong.agriculture.me.FeedbackActivity;
 import com.xidian.xienong.agriculture.me.InformationActivity;
 import com.xidian.xienong.agriculture.me.SettingActivity;
-import com.xidian.xienong.agriculture.me.UpdateManager;
 import com.xidian.xienong.agriculture.resource.StatisticsActivity;
+import com.xidian.xienong.home.LoginActivity;
+import com.xidian.xienong.home.MachineEntranceActivity;
 import com.xidian.xienong.model.Advertisement;
 import com.xidian.xienong.model.AppImage;
 import com.xidian.xienong.model.Headline;
@@ -72,9 +74,10 @@ import okhttp3.Response;
 
 /**
  * Created by koumiaojuan on 2017/6/5.
+ *                   农务
  */
 
-public class HomePageActivity extends AppCompatActivity {
+public class AgricultualManageFragment extends Fragment {
 
     private MarqueeView marquee;
     private ViewPager viewPager;
@@ -102,7 +105,6 @@ public class HomePageActivity extends AppCompatActivity {
     private NavigationView mNavigationView;
     private View head_view;
     private LinearLayout information;
-    private OKHttp httpUrl;
     private List<Advertisement> list = new ArrayList<>();
     private List<Headline> headlines = new ArrayList<>();
     private List<AppImage> appImages = new ArrayList<>();
@@ -113,12 +115,16 @@ public class HomePageActivity extends AppCompatActivity {
     private CircleImageView photo;
     private TextView name,telephone;
     private SharePreferenceUtil sp;
-
+    private View view;
+    private Context context;
+    private OKHttp httpUrl;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage_activity);
+       /* setContentView(R.layout.homepage_activity);*/
+        view = inflater.inflate(R.layout.homepage_activity, null);
+        context=getContext();
         initViews();
         configViews();
         initData();
@@ -127,6 +133,7 @@ public class HomePageActivity extends AppCompatActivity {
         getAppImages();
         initEvents();
       //  Log.e("sHA1",sHA1(HomePageActivity.this));
+        return view;
     }
 
     private void getAppImages() {
@@ -179,10 +186,10 @@ public class HomePageActivity extends AppCompatActivity {
                     appImages.add(image);
                 }
                 for(int i=0;i < appImageViews.size();i++){
-                    Glide.with(HomePageActivity.this).load(appImages.get(i).getImageUrl()).centerCrop().into(appImageViews.get(i));
+                    Glide.with(AgricultualManageFragment.this).load(appImages.get(i).getImageUrl()).centerCrop().into(appImageViews.get(i));
                 }
             }else{
-                Toast.makeText(HomePageActivity.this, "获取图片失败，请重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "获取图片失败，请重试", Toast.LENGTH_SHORT).show();
             }
 
         } catch (JSONException e) {
@@ -192,8 +199,8 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        sp = new SharePreferenceUtil(getApplicationContext(), Constants.SAVE_USER);
-        netWorkUtil = new NetWorkUtil(HomePageActivity.this);
+        sp = new SharePreferenceUtil(context, Constants.SAVE_USER);
+        netWorkUtil = new NetWorkUtil(context);
         httpUrl = OKHttp.getInstance();
         search.setSearchContent("最新上市热销农产品");
     }
@@ -248,7 +255,7 @@ public class HomePageActivity extends AppCompatActivity {
                 }
                 marquee.startWithList(items);
             }else{
-                Toast.makeText(HomePageActivity.this, "获取头条失败，请重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "获取头条失败，请重试", Toast.LENGTH_SHORT).show();
             }
 
         } catch (JSONException e) {
@@ -260,9 +267,9 @@ public class HomePageActivity extends AppCompatActivity {
 
     private void configViews() {
         // 设置显示Toolbar
-     /*   setSupportActionBar(homepageToolbar);*/
+       /* setSupportActionBar(homepageToolbar);*/
         // 设置Drawerlayout开关指示器，即Toolbar最左边的那个icon
-  /*      ActionBarDrawerToggle mActionBarDrawerToggle =
+       /* ActionBarDrawerToggle mActionBarDrawerToggle =
                 new ActionBarDrawerToggle(this, mDrawerLayout, homepageToolbar, R.string.open, R.string.close);
         mActionBarDrawerToggle.syncState();
         mDrawerLayout.setDrawerListener(mActionBarDrawerToggle);*/
@@ -285,20 +292,20 @@ public class HomePageActivity extends AppCompatActivity {
                 Intent intent = null;
                 switch (item.getItemId()){
                     case R.id.nav_menu_statistics:
-                        intent = new Intent(HomePageActivity.this, StatisticsActivity.class);
+                        intent = new Intent(context, StatisticsActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.nav_menu_feedback:
-                        intent = new Intent(HomePageActivity.this, MainActivity.class);
+                        intent = new Intent(context, MainActivity.class);
                         startActivity(intent);
                         //    checkIsLogin();
                         break;
                     case R.id.nav_menu_aboutus:
-                        intent = new Intent(HomePageActivity.this, AboutUsActivity.class);
+                        intent = new Intent(context, AboutUsActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.nav_menu_setting:
-                        intent = new Intent(HomePageActivity.this, SettingActivity.class);
+                        intent = new Intent(context, SettingActivity.class);
                         startActivity(intent);
                         break;
                     default:
@@ -336,10 +343,10 @@ public class HomePageActivity extends AppCompatActivity {
                     String result = jb.getString("reCode");
                     String msg = jb.getString("message");
                     if(result.equals("SUCCESS")){
-                        Intent intent  = new Intent(HomePageActivity.this,FeedbackActivity.class);
+                        Intent intent  = new Intent(context,FeedbackActivity.class);
                         startActivity(intent);
                     }else{
-                        Intent  intent = new Intent(HomePageActivity.this, LoginActivity.class);
+                        Intent  intent = new Intent(context, LoginActivity.class);
                         intent.putExtra("clickView", "feedback");
                         startActivity(intent);
                     }
@@ -388,21 +395,21 @@ public class HomePageActivity extends AppCompatActivity {
         machineEntrance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this,FindActivity.class);
+                Intent intent = new Intent(context,FindActivity.class);
                 startActivity(intent);
             }
         });
         workerEntrance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this,MachineEntranceActivity.class);
+                Intent intent = new Intent(context,MachineEntranceActivity.class);
                 startActivity(intent);
             }
         });
         shoppingEntrance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePageActivity.this, ShoppingActivity.class);
+                Intent intent = new Intent(context, ShoppingActivity.class);
                 startActivity(intent);
             }
         });
@@ -411,7 +418,7 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Intent intent = new Intent(HomePageActivity.this, InformationActivity.class);
+                Intent intent = new Intent(context, InformationActivity.class);
                 startActivity(intent);
             }
         });
@@ -437,13 +444,13 @@ public class HomePageActivity extends AppCompatActivity {
         ArrayList<ImageView> imageviews = new ArrayList<ImageView>();
 
         for(int i=0; i < 4;i++){
-            ImageView image = new ImageView(this);
+            ImageView image = new ImageView(context);
             image.setScaleType(ImageView.ScaleType.FIT_XY);
             if(!netWorkUtil.isNetworkAvailable()){
                 image.setBackgroundResource(images[i]);
             }else {
                 if(list.size()>i){
-                    Glide.with(HomePageActivity.this).load(list.get(i).getPicture()).centerCrop().into(image);
+                    Glide.with(AgricultualManageFragment.this).load(list.get(i).getPicture()).centerCrop().into(image);
                 }
 
             }
@@ -451,7 +458,7 @@ public class HomePageActivity extends AppCompatActivity {
         }
         imageadapter = new ImageAdapter(imageviews);
         for (int i = 0; i < 4 ; i++) {
-            ImageView imageView = new ImageView(this);
+            ImageView imageView = new ImageView(context);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(20, 20); //,
             lp.setMargins(15, 0, 15, 0);
             imageView.setLayoutParams(lp);
@@ -584,7 +591,7 @@ public class HomePageActivity extends AppCompatActivity {
                 }
                 initAdData();
             }else{
-                Toast.makeText(HomePageActivity.this, "获取广告失败，请重试", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "获取广告失败，请重试", Toast.LENGTH_SHORT).show();
             }
 
         } catch (JSONException e) {
@@ -594,21 +601,21 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        /*homepageToolbar = (Toolbar)findViewById(R.id.homepage_toolbar);*/
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.id_homepage_drawerlayout);
+        /*homepageToolbar = (Toolbar)view.findViewById(R.id.homepage_toolbar);*/
+        mDrawerLayout = (DrawerLayout)view.findViewById(R.id.id_homepage_drawerlayout);
 //        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.id_homepage_coordinatorlayout);
-        mNavigationView = (NavigationView) findViewById(R.id.id_homepage_navigationview);
-        viewPager = (ViewPager)findViewById(R.id.homepage_viewPager);
-        group = (ViewGroup)findViewById(R.id.homepage_viewGroups);
-        marquee = (MarqueeView)findViewById(R.id.headline);
-        search = (ViewUpSearch)findViewById(R.id.search);
-        scrollView = (ListenedScrollView)findViewById(R.id.homepage_scrollView);
-        machineEntrance = (TextView)findViewById(R.id.machine_entrance);
-        workerEntrance = (TextView)findViewById(R.id.worker_entrance);
-        shoppingEntrance = (TextView)findViewById(R.id.shopping_entrance);
-        ivFarmerEntrance = (ImageView)findViewById(R.id.iv_farmer_entrance);
-        ivWorkerEntrance = (ImageView)findViewById(R.id.iv_worker_entrance);
-        ivShoppingEntrance = (ImageView)findViewById(R.id.iv_shopping_entrance);
+        mNavigationView = (NavigationView) view.findViewById(R.id.id_homepage_navigationview);
+        viewPager = (ViewPager)view.findViewById(R.id.homepage_viewPager);
+        group = (ViewGroup)view.findViewById(R.id.homepage_viewGroups);
+        marquee = (MarqueeView)view.findViewById(R.id.headline);
+        search = (ViewUpSearch)view.findViewById(R.id.search);
+        scrollView = (ListenedScrollView)view.findViewById(R.id.homepage_scrollView);
+        machineEntrance = (TextView)view.findViewById(R.id.machine_entrance);
+        workerEntrance = (TextView)view.findViewById(R.id.worker_entrance);
+        shoppingEntrance = (TextView)view.findViewById(R.id.shopping_entrance);
+        ivFarmerEntrance = (ImageView)view.findViewById(R.id.iv_farmer_entrance);
+        ivWorkerEntrance = (ImageView)view.findViewById(R.id.iv_worker_entrance);
+        ivShoppingEntrance = (ImageView)view.findViewById(R.id.iv_shopping_entrance);
         appImageViews.clear();
         appImageViews.add(ivFarmerEntrance);
         appImageViews.add(ivWorkerEntrance);
@@ -621,10 +628,10 @@ public class HomePageActivity extends AppCompatActivity {
 //    }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         // TODO Auto-generated method stub
         super.onResume();
-        Glide.with(HomePageActivity.this).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.author).into(photo);
+        Glide.with(AgricultualManageFragment.this).load(sp.getHeadPhoto()).centerCrop().placeholder(R.drawable.author).into(photo);
         name.setText(sp.getUserName());
         telephone.setText(sp.getPhoneNumber());
         boolean isNetworkAvailable = netWorkUtil.isNetworkAvailable();

@@ -32,8 +32,8 @@ public class Url {
     //public final static String API_HOST = "http://192.168.0.38:8080/Agriculture/";
     //public final static String API_HOST = "http://192.168.0.71:8080/Agriculture/";//范孙IP
     //public final static String API_HOST = "http://47.93.31.35/XieNong/";
-    //public final static String API_HOST = "http://47.93.31.35/XieNong/";
-    public final static String API_HOST = "http://192.168.0.38:8080/XieNong/";
+    public final static String API_HOST = "http://47.93.31.35/XieNong/";
+    /*public final static String API_HOST = "http://192.168.0.38:8080/XieNong/";*/
     public static String FarmerLogin = API_HOST + "FarmerLogin";
     public static String WorkerLogin = API_HOST + "WorkerLogin";
     public static String VerificationCode = API_HOST + "VerificationCode";
