@@ -283,6 +283,9 @@
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".main.PageActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="nosensor"
